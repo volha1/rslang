@@ -12,7 +12,7 @@ module.exports = {
         sourceType: 'module'
     },
     plugins: ['import', '@typescript-eslint'],
-    ignorePatterns: ['webpack.config.js', 'webpack.dev.config.js', 'webpack.prod.config.js', '.eslintrc.js'],
+    ignorePatterns: ['*.js'],
     rules: {
         '@typescript-eslint/explicit-function-return-type': 'error',
         '@typescript-eslint/no-explicit-any': 'error',
