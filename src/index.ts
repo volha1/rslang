@@ -1,2 +1,3 @@
-// eslint-disable-next-line
-console.log('RSLang');
+import bootstrap from './ts/pages/main/main';
+
+bootstrap();
