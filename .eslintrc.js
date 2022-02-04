@@ -26,7 +26,7 @@ module.exports = {
                 'ts': 'never'
             }
         ],
-        'import/no-cycle':'off',
+        'import/no-cycle': 'off',
         'no-plusplus': 'off',
         'no-shadow': 'off',
         'no-restricted-syntax': 'off',
@@ -41,6 +41,7 @@ module.exports = {
         'max-len': 'off',
         indent: 'off',
         'comma-dangle': 'off',
+        'comma-spacing': 'off',
         'operator-linebreak': 'off',
         'space-infix-ops': 'off',
     },
