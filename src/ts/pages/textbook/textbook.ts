@@ -1,6 +1,6 @@
 import template from 'lodash.template';
 import Header from '../../components/header/header';
-import MiniGamesHTML from './mini-games.html';
+import TextbookHTML from './textbook.html';
 
 export default function bootstrap(): void {
   const body = document.querySelector<HTMLElement>('body');
@@ -10,6 +10,6 @@ export default function bootstrap(): void {
   const header = new Header();
   body?.append(header.render());
   const main = document.createElement('main');
-  main.innerHTML = template(MiniGamesHTML)();
+  main.innerHTML = template(TextbookHTML)();
   body?.append(main);
 }
