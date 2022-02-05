@@ -1,3 +1,6 @@
-const backendUrl = 'https://learnwords-rslang-01.herokuapp.com';
+const usersUrl = 'https://learnwords-rslang-01.herokuapp.com/users';
+const signInUrl = 'https://learnwords-rslang-01.herokuapp.com/signin';
+const token = 'token';
+const refreshToken = 'refresh-token';
 
-export default { backendUrl };
+export { usersUrl, signInUrl, token, refreshToken };
