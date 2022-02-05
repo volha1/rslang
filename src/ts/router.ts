@@ -8,6 +8,7 @@ import sprint from './pages/sprint/sprint';
 import wordList from './pages/word-list/word-list';
 
 export default function routing(): void {
+  main();
   const router = new Navigo('/', { hash: true });
 
   router
