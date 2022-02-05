@@ -1,3 +1,3 @@
-import bootstrap from './ts/pages/main/main';
+import router from './ts/router';
 
-bootstrap();
+window.addEventListener('load', router);
