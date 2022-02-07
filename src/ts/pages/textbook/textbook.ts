@@ -3,7 +3,7 @@ import Header from '../../components/header/header';
 import TextbookHTML from './textbook.html';
 import './textbook.scss';
 
-export default function load(): void {
+export default function bootstrap(): void {
   const body = document.querySelector<HTMLElement>('body');
   if (body) {
     body.innerHTML = '';
