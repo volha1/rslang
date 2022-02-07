@@ -1,12 +1,31 @@
-<nav>
-    <ul>
-        <li>
-            <a href="/" data-navigo>Главная</a></li>
-        <li>
-            <a href="/textbook" data-navigo>Электронный учебник</a></li>
-        <li>
-            <a href="/mini-games" data-navigo>Мини-игры</a></li>
-        <li>
-            <a href="/statistics" data-navigo><%-sample%></a></li>
-    </ul>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/" data-navigo data-route="main">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/textbook" data-navigo data-route="textbook">Электронный учебник</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" data-route="miniGames">
+                        Мини-игры
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/mini-games/audio-call" data-navigo>Аудиовызов</a></li>
+                        <li><a class="dropdown-item" href="/mini-games/sprint" data-navigo>Спринт</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" a href="/statistics" data-navigo data-route="statistics">Статистика</a>
+                </li>
+        </div>
+        <button type="button" class="btn btn-outline-secondary auth"><img src="../../../assets/svg/auth.svg" alt="auth" class="auth-img"></button>
+    </div>
 </nav>
