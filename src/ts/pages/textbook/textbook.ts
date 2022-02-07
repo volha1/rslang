@@ -1,8 +1,9 @@
 import template from 'lodash.template';
 import Header from '../../components/header/header';
 import TextbookHTML from './textbook.html';
+import './textbook.scss';
 
-export default function bootstrap(): void {
+export default function load(): void {
   const body = document.querySelector<HTMLElement>('body');
   if (body) {
     body.innerHTML = '';
