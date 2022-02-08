@@ -14,6 +14,8 @@ export default function bootstrap(): void {
   const main = document.createElement('main');
   main.innerHTML = template(MainHTML)();
   body?.append(main);
-  main.append(new Registration().render());
-  main.append(new Login().render());
+  const registration = new Registration();
+  main.append(registration.render());
+  const login = new Login();
+  main.append(login.render());
 }

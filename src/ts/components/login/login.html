@@ -1,6 +1,39 @@
-<form class="login-form">
+<!-- <form class="login-form">
   <input class="email" type="email" placeholder="Email" required name="email" />
   <input class="password" type="password" placeholder="Password" required name="password" />
   <button class="btn" type="submit">Login</button>
   <p class="message">Not registered? <a href="#">Sign Up</a></p>
-</form>
+</form> -->
+
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="modalLogin" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLogin">Вход</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="login-form">
+          <div class="form-group mb-3">
+            <label for="login-email">Email</label>
+            <input type="email" class="form-control email" id="login-email" required placeholder="Введите email" />
+          </div>
+          <div class="form-group mb-3">
+            <label for="login-password">Пароль</label>
+            <input
+              type="password"
+              class="form-control password"
+              id="login-password"
+              required
+              placeholder="Введите пароль"
+              aria-describedby="passwordHelpBlock"
+            />
+            <div id="passwordHelpBlock" class="form-text">Ваш пароль должен быть не менее 8 символов.</div>
+          </div>
+          <button class="btn btn-success mb-3" type="submit">Вход</button>
+          <p class="message mb-3">Нет аккаунта? <a href="" data-bs-target="#registrationModal" data-bs-toggle="modal">Зарегистрироваться</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
