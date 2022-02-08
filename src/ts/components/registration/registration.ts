@@ -1,6 +1,5 @@
 import template from 'lodash.template';
 import Component from '../abstract-component';
-import './registration.scss';
 import RegistrationHTML from './registration.html';
 import UserService from '../../services/user-service';
 
