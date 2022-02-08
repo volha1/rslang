@@ -1,5 +1,6 @@
 import template from 'lodash.template';
 import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
 import StatisticsHTML from './statistics.html';
 
 export default function bootstrap(): void {
@@ -12,4 +13,6 @@ export default function bootstrap(): void {
   const main = document.createElement('main');
   main.innerHTML = template(StatisticsHTML)();
   body?.append(main);
+  const footer = new Footer();
+  body?.append(footer.render());
 }
