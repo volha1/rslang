@@ -1,7 +1,44 @@
-<form class='register-form'>
-  <input class="name" type="text" placeholder="Name" required name="name" />
-  <input class="email" type="email" placeholder="Email" required name="email" />
-  <input class="password" type="password" placeholder="Password" required name="password" />
-  <button class="btn" type="submit">Register</button>
-  <p class="message">Already registered? <a href="#">Login</a></p>
-</а>
+<div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="modalRegistration" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalRegistration">Регистрация</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="registration-form">
+          <div class="form-group mb-3">
+            <label for="register-name">Имя</label>
+            <input type="name" class="form-control name" id="register-name" required placeholder="Введите имя" />
+          </div>
+          <div class="form-group mb-3">
+            <label for="register-email">Email</label>
+            <input type="email" class="form-control email" id="register-email" required placeholder="Введите email" />
+          </div>
+          <div class="form-group mb-3">
+            <label for="register-password">Пароль</label>
+            <input
+              type="password"
+              class="form-control password"
+              id="register-password"
+              required
+              placeholder="Введите пароль"
+              aria-describedby="passwordHelpBlock"
+            />
+            <div id="passwordHelpBlock" class="form-text">Ваш пароль должен быть не менее 8 символов.</div>
+          </div>
+          <button class="btn btn-success mb-3" type="submit">Зарегистрироваться</button>
+          <p class="message mb-3">Уже зарегистрированы? <a href="" data-bs-target="#loginModal" data-bs-toggle="modal">Вход</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+

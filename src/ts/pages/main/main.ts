@@ -1,8 +1,8 @@
 import template from 'lodash.template';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
-// import Registration from '../../components/registration/registration';
-// import Login from '../../components/login/login';
+import Registration from '../../components/registration/registration';
+import Login from '../../components/login/login';
 import MainHTML from './main.html';
 import './main.scss';
 
@@ -17,8 +17,11 @@ export default function bootstrap(): void {
   main.classList.add('main');
   main.innerHTML = template(MainHTML)();
   body?.append(main);
+
   const footer = new Footer();
   body?.append(footer.render());
-  //   main.append(new Registration().render());
-  //   main.append(new Login().render());
+  const registration = new Registration();
+  main.append(registration.render());
+  const login = new Login();
+  main.append(login.render());
 }

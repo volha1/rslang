@@ -21,7 +21,7 @@ export default class Registration extends Component {
       const email = this.container.querySelector<HTMLInputElement>('.email')?.value;
       const password = this.container.querySelector<HTMLInputElement>('.password')?.value;
       await UserService.createUser({ name: name!, email: email!, password: password! }).then(() =>
-        this.container.querySelector<HTMLFormElement>('.register-form')?.reset()
+        this.container.querySelector<HTMLFormElement>('.registration-form')?.reset()
       );
     });
   }
