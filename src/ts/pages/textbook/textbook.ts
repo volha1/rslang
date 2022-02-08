@@ -1,5 +1,6 @@
 import template from 'lodash.template';
 import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
 import TextbookHTML from './textbook.html';
 import './textbook.scss';
 
@@ -13,4 +14,6 @@ export default function bootstrap(): void {
   const main = document.createElement('main');
   main.innerHTML = template(TextbookHTML)();
   body?.append(main);
+  const footer = new Footer();
+  body?.append(footer.render());
 }
