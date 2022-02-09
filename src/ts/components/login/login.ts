@@ -20,7 +20,7 @@ export default class Login extends Component {
       const password = this.container.querySelector<HTMLInputElement>('.login-form .password')?.value;
       await AuthService.login({ email: email!, password: password! });
       this.container.querySelector<HTMLFormElement>('.login-form')?.reset();
-      window.location.replace('/');
+      window.location.reload();
     });
   }
 }

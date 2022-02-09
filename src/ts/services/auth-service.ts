@@ -21,4 +21,6 @@ const logout = (): void => {
   LocalStorageService.deleteUserData();
 };
 
-export default { login, logout };
+const isLogged = (): boolean => LocalStorageService.getUserID() !== null;
+
+export default { login, logout, isLogged };

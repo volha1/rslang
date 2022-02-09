@@ -20,8 +20,10 @@ const saveUserName = (name: string): void => {
   localStorage.setItem(constants.userName, name);
 };
 
-const getUserName = (): string | null => localStorage.getItem(constants.userName);
+const getUserName = (): string | null => localStorage.getItem(constants.userName) ?? '';
+
+const getUserID = (): string | null => localStorage.getItem(constants.userId);
 
 const getCurrentRoute = (): string | null => localStorage.getItem(constants.currentRoute);
 
-export default { saveTokens, deleteUserData, saveUserID, saveUserName, getCurrentRoute, getUserName };
+export default { saveTokens, deleteUserData, saveUserID, saveUserName, getCurrentRoute, getUserName, getUserID };
