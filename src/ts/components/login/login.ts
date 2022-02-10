@@ -18,9 +18,9 @@ export default class Login extends Component {
       event.preventDefault();
       const email = this.container.querySelector<HTMLInputElement>('.login-form .email')?.value;
       const password = this.container.querySelector<HTMLInputElement>('.login-form .password')?.value;
-      await AuthService.login({ email: email!, password: password! }).then(() =>
-        this.container.querySelector<HTMLFormElement>('.login-form')?.reset());
-        window.location.href = '/';
+      await AuthService.login({ email: email!, password: password! });
+      this.container.querySelector<HTMLFormElement>('.login-form')?.reset();
+      window.location.reload();
     });
   }
 }

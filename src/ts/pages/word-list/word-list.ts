@@ -1,6 +1,8 @@
 import template from 'lodash.template';
 import Header from '../../components/header/header';
 import WordListHTML from './word-list.html';
+import Registration from '../../components/registration/registration';
+import Login from '../../components/login/login';
 
 export default function bootstrap(chapter: number, page: number): void {
   const body = document.querySelector<HTMLElement>('body');
@@ -12,4 +14,8 @@ export default function bootstrap(chapter: number, page: number): void {
   const main = document.createElement('main');
   main.innerHTML = template(WordListHTML)({ chapter, page });
   body?.append(main);
+  const registration = new Registration();
+  main.append(registration.render());
+  const login = new Login();
+  main.append(login.render());
 }
