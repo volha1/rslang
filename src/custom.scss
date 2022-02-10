@@ -1,4 +1,12 @@
 @import '../node_modules/bootstrap/scss/bootstrap';
 body {
   position: relative;
+
+.visible {
+  visibility: visible !important;
+  display: block;
+}
+.invisible {
+  visibility: hidden !important;
+  display: none;
 }

@@ -1,6 +1,9 @@
 import Header from '../../components/header/header';
 import getWords from '../../services/word-list-service';
 import WordCard from '../../components/word/word';
+import WordListHTML from './word-list.html';
+import Registration from '../../components/registration/registration';
+import Login from '../../components/login/login';
 
 export default async function bootstrap(chapter: number, page: number): Promise<void> {
   const body = document.querySelector<HTMLElement>('body');
@@ -45,4 +48,8 @@ export default async function bootstrap(chapter: number, page: number): Promise<
   main.append(wordsContainer);
   main.append(`Раздел${chapter}, страница ${page}`);
   body?.append(main);
+  const registration = new Registration();
+  main.append(registration.render());
+  const login = new Login();
+  main.append(login.render());
 }
