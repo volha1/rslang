@@ -24,6 +24,6 @@ const getUserName = (): string | null => localStorage.getItem(constants.userName
 
 const getUserID = (): string | null => localStorage.getItem(constants.userId);
 
-const getCurrentRoute = (): string | null => localStorage.getItem(constants.currentRoute);
+const getRefreshToken = (): string | null => localStorage.getItem(constants.refreshToken);
 
-export default { saveTokens, deleteUserData, saveUserID, saveUserName, getCurrentRoute, getUserName, getUserID };
+export default { saveTokens, deleteUserData, saveUserID, saveUserName, getUserName, getUserID, getRefreshToken };
