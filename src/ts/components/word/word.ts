@@ -33,7 +33,27 @@ export default class WordCard extends Component {
       textMeaningTranslate: this.textMeaningTranslate,
       wordTranslate: this.wordTranslate,
     });
-
+    this.addListeners();
     return this.container;
+  }
+
+  addListeners(): void {
+    const wordAudio = new Audio(`https://learnwords-rslang-01.herokuapp.com/${this.audio}`);
+    const wordMeaningAudio = new Audio(`https://learnwords-rslang-01.herokuapp.com/${this.audioMeaning}`);
+    const wordExampleAudio = new Audio(`https://learnwords-rslang-01.herokuapp.com/${this.audioExample}`);
+
+    async function playAudio(): Promise<void> {
+      await wordAudio.play();
+    }
+    async function playMeaningAudio(): Promise<void> {
+      await wordMeaningAudio.play();
+    }
+    async function playExampleAudio(): Promise<void> {
+      await wordExampleAudio.play();
+    }
+    wordAudio.addEventListener('ended', playMeaningAudio);
+    wordMeaningAudio.addEventListener('ended', playExampleAudio);
+
+    this.container.querySelector<HTMLButtonElement>('.button-sound')?.addEventListener('click', playAudio);
   }
 }
