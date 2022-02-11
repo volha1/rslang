@@ -1,0 +1,16 @@
+.game-sections-container {
+  height: 88vh;
+  overflow:hidden;
+}
+
+.game-sections-container a {
+  transition: all 0.5s ease-in;
+}
+
+.game-sections-container div {
+  letter-spacing: 5px;
+}
+
+.game-sections-container a:hover {
+  transform: scale(1.1);
+}
