@@ -1,7 +1,6 @@
 import Header from '../../components/header/header';
 import getWords from '../../services/word-list-service';
 import WordCard from '../../components/word/word';
-import WordListHTML from './word-list.html';
 import Registration from '../../components/registration/registration';
 import Login from '../../components/login/login';
 

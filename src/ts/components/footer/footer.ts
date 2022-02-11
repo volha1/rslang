@@ -11,7 +11,7 @@ export default class Footer extends Component {
   render(): HTMLElement {
     this.container.innerHTML = template(FooterHTML)();
     if (localStorage.getItem(constants.currentRoute) === 'textbook') {
-      this.container.classList.add('textbook-footer');
+      this.container.classList.add('fixed-bottom');
     }
     return this.container;
   }
