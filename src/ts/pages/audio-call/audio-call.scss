@@ -1,0 +1,24 @@
+.audio-call-container {
+  height: 92vh;
+}
+
+.btn-audio-word {
+  box-sizing: border-box;
+  width: 150px;
+}
+
+.btn-speaker:hover {
+  transform: scale(1.1);
+  transition: all 0.2s ease-in;
+}
+
+svg {
+  stroke: #54cdc3;
+  fill: #54cdc3;
+  transition: all 0.2s ease-in;
+}
+
+svg:hover {
+  stroke: #4ab5ac;
+  fill: #4ab5ac;
+}

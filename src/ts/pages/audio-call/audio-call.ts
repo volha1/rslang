@@ -3,6 +3,7 @@ import Header from '../../components/header/header';
 import AudioCallHTML from './audio-call.html';
 import Registration from '../../components/registration/registration';
 import Login from '../../components/login/login';
+import './audio-call.scss';
 
 export default function bootstrap(): void {
   const body = document.querySelector<HTMLElement>('body');
