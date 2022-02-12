@@ -6,6 +6,24 @@ const refreshToken = 'refresh-token';
 const currentRoute = 'current-route';
 const userName = 'user-name';
 const userId = 'user-id';
+const numberOfChaptersNoUser = 6;
+const numberOfChaptersUser = 7;
+const numberOfPagesAllChapters = 30;
+const numberOfPagesChapter7 = 1;
+const numberOfWords = 20;
 
-export { usersUrl, signInUrl, wordsUrl, token, refreshToken, currentRoute, userName, userId };
-
+export {
+  usersUrl,
+  signInUrl,
+  wordsUrl,
+  token,
+  refreshToken,
+  currentRoute,
+  userName,
+  userId,
+  numberOfChaptersNoUser,
+  numberOfChaptersUser,
+  numberOfPagesAllChapters,
+  numberOfPagesChapter7,
+  numberOfWords,
+};

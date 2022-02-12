@@ -1,4 +1,5 @@
 import * as constants from '../constants';
+import store from '../store';
 
 type JSONWords = Array<{
   id: string;
@@ -18,7 +19,7 @@ type JSONWords = Array<{
 }>;
 
 export default async function getWords(): Promise<JSONWords> {
-  const response = await fetch(`${constants.wordsUrl}?page=0&group=0`);
+  const response = await fetch(`${constants.wordsUrl}?page=${store.page-1}&group=${store.chapter-1}`);
   const wordsArray = await response.json();
   return wordsArray;
 }

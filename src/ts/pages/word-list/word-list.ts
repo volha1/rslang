@@ -1,10 +1,12 @@
 import Header from '../../components/header/header';
+import WordListNav from '../../components/word-list-nav/word-list-nav';
 import getWords from '../../services/word-list-service';
 import WordCard from '../../components/word/word';
 import Registration from '../../components/registration/registration';
 import Login from '../../components/login/login';
+import { router } from '../../router';
 
-export default async function bootstrap(chapter: number, page: number): Promise<void> {
+export default async function bootstrap(): Promise<void> {
   const body = document.querySelector<HTMLElement>('body');
   if (body) {
     body.innerHTML = '';
@@ -12,6 +14,8 @@ export default async function bootstrap(chapter: number, page: number): Promise<
   const header = new Header();
   body?.append(header.render());
   const main = document.createElement('main');
+  const wordListNav = new WordListNav();
+  main?.append(wordListNav.render());
   const wordsContainer = document.createElement('div');
   const wordsArray = await getWords();
   wordsArray.forEach((item) => {
@@ -45,10 +49,10 @@ export default async function bootstrap(chapter: number, page: number): Promise<
   });
 
   main.append(wordsContainer);
-  main.append(`Раздел${chapter}, страница ${page}`);
   body?.append(main);
   const registration = new Registration();
   main.append(registration.render());
   const login = new Login();
   main.append(login.render());
+  router?.updatePageLinks();
 }

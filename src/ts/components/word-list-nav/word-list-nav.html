@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+        <div>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Раздел <%-chapter%>
+                    </a>
+                    <ul class="dropdown-menu choose-chapter" aria-labelledby="navbarDropdown">
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Страница <%-page%>
+                    </a>
+                    <ul class="dropdown-menu choose-page" aria-labelledby="navbarDropdown">
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                        data-route="miniGames">
+                        Мини-игры со словами этой страницы
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/mini-games/audio-call" data-navigo>Аудиовызов</a></li>
+                        <li><a class="dropdown-item" href="/mini-games/sprint" data-navigo>Спринт</a></li>
+                    </ul>
+                </li>
+        </div>
+    </div>
+</nav>

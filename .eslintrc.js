@@ -27,6 +27,7 @@ module.exports = {
             }
         ],
         'import/no-cycle': 'off',
+        'import/no-mutable-exports': 'off',
         'no-plusplus': 'off',
         'no-shadow': 'off',
         'no-restricted-syntax': 'off',
@@ -44,6 +45,7 @@ module.exports = {
         'comma-spacing': 'off',
         'operator-linebreak': 'off',
         'space-infix-ops': 'off',
+        'space-before-blocks': 'off',
     },
     settings: {
         'import/parsers': {
