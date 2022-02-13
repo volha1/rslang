@@ -3,6 +3,8 @@ import Header from '../../components/header/header';
 import AudioCallHTML from './audio-call.html';
 import Registration from '../../components/registration/registration';
 import Login from '../../components/login/login';
+import GameProgress from '../../components/game-progress/game-progress';
+import GameResult from '../../components/game-result/game-result';
 import './audio-call.scss';
 
 export default function bootstrap(): void {
@@ -19,4 +21,8 @@ export default function bootstrap(): void {
   main.append(registration.render());
   const login = new Login();
   main.append(login.render());
+  const progressModal = new GameProgress();
+  main.append(progressModal.render());
+  const resultModal = new GameResult();
+  main.append(resultModal.render());
 }
