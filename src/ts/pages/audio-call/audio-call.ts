@@ -1,10 +1,12 @@
-import template from 'lodash.template';
 import Header from '../../components/header/header';
-import AudioCallHTML from './audio-call.html';
 import Registration from '../../components/registration/registration';
 import Login from '../../components/login/login';
 import GameProgress from '../../components/game-progress/game-progress';
 import GameResult from '../../components/game-result/game-result';
+import AudioCallAnswer from '../../components/audio-call-answer/audio-call-answer';
+import AudioCallSpeaker from '../../components/audio-call-speaker/audio-call-speaker';
+import AudioCallOptions from '../../components/audio-call-options/audio-call-options';
+import AudioCallNav from '../../components/audio-call-nav/audio-call-nav';
 import './audio-call.scss';
 
 export default function bootstrap(): void {
@@ -12,17 +14,30 @@ export default function bootstrap(): void {
   if (body) {
     body.innerHTML = '';
   }
+
   const header = new Header();
   body?.append(header.render());
   const main = document.createElement('main');
-  main.innerHTML = template(AudioCallHTML)();
+
+  const audiocallContainer = document.createElement('div');
+  audiocallContainer.classList.add('container', 'audio-call-container', 'd-flex', 'flex-column', 'align-items-center', 'justify-content-center');
+  const answer = new AudioCallAnswer();
+  audiocallContainer.append(answer.render());
+  const speaker = new AudioCallSpeaker();
+  audiocallContainer.append(speaker.render());
+  const options = new AudioCallOptions();
+  audiocallContainer.append(options.render());
+  const navigation = new AudioCallNav();
+  audiocallContainer.append(navigation.render());
+  main.append(audiocallContainer);
+
   body?.append(main);
   const registration = new Registration();
   main.append(registration.render());
   const login = new Login();
   main.append(login.render());
-  const progressModal = new GameProgress();
-  main.append(progressModal.render());
-  const resultModal = new GameResult();
-  main.append(resultModal.render());
+  const gameProgress = new GameProgress();
+  main.append(gameProgress.render());
+  const gameResult = new GameResult();
+  main.append(gameResult.render());
 }
