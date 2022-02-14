@@ -2,9 +2,12 @@ import Header from '../../components/header/header';
 import WordListNav from '../../components/word-list-nav/word-list-nav';
 import getWords from '../../services/word-list-service';
 import WordCard from '../../components/word/word';
+import PrevNextButtons from '../../components/prev-next-buttons/prev-next-buttons';
+import Footer from '../../components/footer/footer';
 import Registration from '../../components/registration/registration';
 import Login from '../../components/login/login';
 import { router } from '../../router';
+import store from '../../store';
 
 export default async function bootstrap(): Promise<void> {
   const body = document.querySelector<HTMLElement>('body');
@@ -49,7 +52,13 @@ export default async function bootstrap(): Promise<void> {
   });
 
   main.append(wordsContainer);
+  if (store.chapter !== 7) {
+    const prevNextButtons = new PrevNextButtons();
+    main.append(prevNextButtons.render());
+  }
   body?.append(main);
+  const footer = new Footer();
+  body?.append(footer.render());
   const registration = new Registration();
   main.append(registration.render());
   const login = new Login();

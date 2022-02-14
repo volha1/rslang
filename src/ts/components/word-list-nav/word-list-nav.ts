@@ -1,6 +1,7 @@
 import template from 'lodash.template';
 import Component from '../abstract-component';
 import WordListNavHTML from './word-list-nav.html';
+import './word-list-nav.scss';
 import AuthService from '../../services/auth-service';
 import * as constants from '../../constants';
 import store from '../../store';
@@ -18,6 +19,7 @@ export default class WordListNav extends Component {
     }
     for (let i = 1; i <= numberOfChapters; i++) {
       const li = document.createElement('li');
+      li.classList.add(`chapter${i}`);
       li.innerHTML = `<a class="dropdown-item" href="/textbook/chapter/${i}/page/1" data-navigo>Раздел ${i}</a>`;
       chooseChapter?.append(li);
     }
