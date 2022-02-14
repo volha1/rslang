@@ -6,7 +6,7 @@ import { router } from '../../router';
 
 export default class PrevNextButtons extends Component {
   constructor() {
-    super('div', 'gap-2 d-flex justify-content-center mb-5');
+    super('div', 'gap-2 d-flex justify-content-center');
   }
   render(): HTMLElement {
     this.container.innerHTML = template(PrevNextButtonsHTML)();

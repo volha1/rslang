@@ -30,7 +30,7 @@ export default function routing(): void {
       textbook();
     })
     .on('/textbook/chapter/:chapter/page/:page', (data) => {
-      localStorage.setItem(constants.currentRoute, Routes.textbook);
+      localStorage.setItem(constants.currentRoute, Routes.wordList);
       if (data?.data?.chapter) {
         store.chapter = Number(data?.data?.chapter);
         store.page = Number(data?.data?.page);
