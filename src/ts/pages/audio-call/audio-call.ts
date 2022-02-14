@@ -6,10 +6,11 @@ import GameResult from '../../components/game-result/game-result';
 import AudioCallAnswer from '../../components/audio-call-answer/audio-call-answer';
 import AudioCallSpeaker from '../../components/audio-call-speaker/audio-call-speaker';
 import AudioCallOptions from '../../components/audio-call-options/audio-call-options';
-import AudioCallNav from '../../components/audio-call-nav/audio-call-nav';
 import './audio-call.scss';
+import * as utils from '../../utils';
 
-export default function bootstrap(): void {
+ export default async function bootstrap(): Promise<void> {
+  await utils.getWordsPerPage();
   const body = document.querySelector<HTMLElement>('body');
   if (body) {
     body.innerHTML = '';
@@ -27,8 +28,6 @@ export default function bootstrap(): void {
   audiocallContainer.append(speaker.render());
   const options = new AudioCallOptions();
   audiocallContainer.append(options.render());
-  const navigation = new AudioCallNav();
-  audiocallContainer.append(navigation.render());
   main.append(audiocallContainer);
 
   body?.append(main);

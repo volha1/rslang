@@ -1,3 +1,4 @@
+const url = 'https://learnwords-rslang-01.herokuapp.com/';
 const usersUrl = 'https://learnwords-rslang-01.herokuapp.com/users';
 const signInUrl = 'https://learnwords-rslang-01.herokuapp.com/signin';
 const wordsUrl = 'https://learnwords-rslang-01.herokuapp.com/words';
@@ -6,5 +7,7 @@ const refreshToken = 'refresh-token';
 const currentRoute = 'current-route';
 const userName = 'user-name';
 const userId = 'user-id';
+const appPagesAmount = 30;
+const gameAnswerOptionsNumber = 4;
 
-export { usersUrl, signInUrl, wordsUrl, token, refreshToken, currentRoute, userName, userId };
+export { url, usersUrl, signInUrl, wordsUrl, token, refreshToken, currentRoute, userName, userId, appPagesAmount, gameAnswerOptionsNumber };

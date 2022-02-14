@@ -4,10 +4,22 @@ import Footer from '../../components/footer/footer';
 import Registration from '../../components/registration/registration';
 import Login from '../../components/login/login';
 import GameSectionsHTML from './game-sections.html';
+import store from '../../store';
+import * as utils from '../../utils';
+import * as constants from '../../constants';
 import './game-sections.scss';
 
+function addListeners(): void {
+  document.querySelectorAll<HTMLElement>('.section-link').forEach((item) => {
+    item.addEventListener('click', async (event) => {
+      store.chapter = +(<HTMLElement>event.target).dataset.section!;
+      store.page = utils.getRandomNumber(constants.appPagesAmount);
+    });
+  });
+}
+
 export default function bootstrap(): void {
-    const body = document.querySelector<HTMLElement>('body');
+  const body = document.querySelector<HTMLElement>('body');
   if (body) {
     body.innerHTML = '';
   }
@@ -23,4 +35,5 @@ export default function bootstrap(): void {
   main.append(registration.render());
   const login = new Login();
   main.append(login.render());
+  addListeners();
 }
