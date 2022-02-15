@@ -14,7 +14,7 @@
             <p>Я знаю: <span class="badge rounded-pill bg-success"><%-rightAnswers.length%></span></p>
             <ul class="list-group list-group-flush">
                 <%for(let i = 0; i < rightAnswers.length; i += 1) { %><li class="list-group-item list-group-item-success">
-                  <button type="button" class="btn">
+                  <button type="button" class="btn result-audio-btn" data-audio="<%-rightAnswers[i].audio%>">
                     <img src="../../../assets/svg/speaker.svg" style="width:20px; height:20px;">
                   </button>
                   <%-rightAnswers[i].word%> - <%-rightAnswers[i].wordTranslate%>
@@ -25,7 +25,7 @@
             <p>Я не знаю: <span class="badge rounded-pill bg-danger"><%-wrongAnswers.length%></span></p>
             <ul class="list-group list-group-flush">
                 <%for(let i = 0; i < wrongAnswers.length; i += 1) { %><li class="list-group-item list-group-item-danger">
-                  <button type="button" class="btn">
+                  <button type="button" class="btn result-audio-btn" data-audio="<%-wrongAnswers[i].audio%>">
                     <img src="../../../assets/svg/speaker.svg" style="width:20px; height:20px;">
                   </button>
                   <%-wrongAnswers[i].word%> - <%-wrongAnswers[i].wordTranslate%>
