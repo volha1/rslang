@@ -33,29 +33,34 @@ export default class AudioCallOptions extends Component {
     this.container.querySelectorAll<HTMLElement>('.btn-option').forEach((item) => {
       item.addEventListener('click', (event) => {
         const guess = (<HTMLButtonElement>event.target).dataset.word;
-        const answer = state.gameWordsForGuessing[state.wordsCounter].wordTranslate;
-        const guessWordObject = state.gameWordsForGuessing.find((item) => item.wordTranslate === guess);
+        const answerWordObject = state.gameWordsForGuessing[state.wordsCounter];
+        const answer = answerWordObject.wordTranslate;
 
         if (guess === answer) {
           (<HTMLButtonElement>event.target).classList.remove('btn-outline-info');
           (<HTMLButtonElement>event.target).classList.add('btn-success');
-          state.gameRightAnswers.push(guessWordObject!);
+          state.gameRightAnswers.push(answerWordObject!);
         } else {
           const rightAnswer = document.querySelector<HTMLButtonElement>(`[data-word="${answer}"]`)!;
           (<HTMLButtonElement>event.target).classList.remove('btn-outline-info');
           (<HTMLButtonElement>event.target).classList.add('btn-danger');
           rightAnswer.classList.remove('btn-outline-info');
           rightAnswer.classList.add('btn-success');
-          state.gameWrongAnswers.push(guessWordObject!);
+          state.gameWrongAnswers.push(answerWordObject!);
         }
         toggleSections();
       });
     });
 
-    this.container.querySelector<HTMLButtonElement>('.btn-next')?.addEventListener('click', () => {
-      state.wordsCounter += 1;
-      audioCall();
-      toggleSections();
+    this.container.querySelector<HTMLButtonElement>('.btn-next')?.addEventListener('click', async () => {
+      if (state.wordsCounter === state.gameWordsForGuessing.length - 1) {
+        await audioCall();
+        document.querySelector<HTMLButtonElement>('.btn-game-results')?.click();
+      } else {
+        audioCall();
+        state.wordsCounter += 1;
+        toggleSections();
+      }
     });
   }
 }

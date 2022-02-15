@@ -11,37 +11,31 @@
             </li>
           </ul>
           <div class="mb-4">
-            <p>Я знаю: <span class="badge rounded-pill bg-success">12</span></p>
+            <p>Я знаю: <span class="badge rounded-pill bg-success"><%-rightAnswers.length%></span></p>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item list-group-item-success">
-                    <button type="button" class="btn">
-                        <img src="../../../assets/svg/speaker.svg" style="width:20px; height:20px;">
-                    </button>
-                    merge - капитан
-                </li>
-                <li class="list-group-item list-group-item-success">
-                    <button type="button" class="btn">
-                        <img src="../../../assets/svg/speaker.svg" style="width:20px; height:20px;">
-                    </button>
-                    gift - подарок
-                </li>
+                <%for(let i = 0; i < rightAnswers.length; i += 1) { %><li class="list-group-item list-group-item-success">
+                  <button type="button" class="btn">
+                    <img src="../../../assets/svg/speaker.svg" style="width:20px; height:20px;">
+                  </button>
+                  <%-rightAnswers[i].word%> - <%-rightAnswers[i].wordTranslate%>
+                </li><% }; %>
               </ul>
           </div>
           <div>
-            <p>Я не знаю: <span class="badge rounded-pill bg-danger">8</span></p>
+            <p>Я не знаю: <span class="badge rounded-pill bg-danger"><%-wrongAnswers.length%></span></p>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item list-group-item-danger">
-                    <button type="button" class="btn">
-                        <img src="../../../assets/svg/speaker.svg" style="width:20px; height:20px;">
-                    </button>
-                    merge - капитан
-                </li>
+                <%for(let i = 0; i < wrongAnswers.length; i += 1) { %><li class="list-group-item list-group-item-danger">
+                  <button type="button" class="btn">
+                    <img src="../../../assets/svg/speaker.svg" style="width:20px; height:20px;">
+                  </button>
+                  <%-wrongAnswers[i].word%> - <%-wrongAnswers[i].wordTranslate%>
+                </li><% }; %>
               </ul>
           </div>
         </div>
         <div class="modal-footer d-flex justify-content-center">
-          <a href="/mini-games/audio-call" class="btn btn-primary" data-navigo>повторить</a>
-          <a href="/textbook" class="btn btn-primary" data-navigo>учебник</a>
+          <a href="#/mini-games/audio-call" class="btn btn-primary" data-navigo>повторить</a>
+          <a href="#/textbook" class="btn btn-primary" data-navigo>учебник</a>
         </div>
       </div>
   </div>
