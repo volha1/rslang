@@ -13,3 +13,15 @@
   background-color: $default-word-card-color;
   border-radius: 10px;
 }
+
+.invisible-btn {
+  display: none !important;
+}
+
+.hard {
+  background-color: $difficult-word-card-color;
+}
+
+.easy {
+  background-color: $learned-word-card-color;
+}

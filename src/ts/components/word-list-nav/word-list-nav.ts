@@ -7,11 +7,18 @@ import * as constants from '../../constants';
 import store from '../../store';
 
 export default class WordListNav extends Component {
-  constructor() {
+  easyPages: number[];
+  constructor(easyPages: number[]) {
     super('div', 'word-list-nav');
+    this.easyPages = easyPages;
   }
   render(): HTMLElement {
     this.container.innerHTML = template(WordListNavHTML)({ chapter: store.chapter, page: store.page });
+    const gamesFromPage = this.container.querySelector<HTMLButtonElement>('.games-from-page');
+    if (gamesFromPage && store.markedWordsCounter === 20) {
+      gamesFromPage.disabled = true;
+      gamesFromPage.style.cursor = 'not-allowed';
+    }
     const chooseChapter = this.container.querySelector('.choose-chapter');
     let numberOfChapters = constants.numberOfChaptersNoUser;
     if (AuthService.isLogged()) {
@@ -31,6 +38,9 @@ export default class WordListNav extends Component {
     for (let i = 1; i <= numberOfPages; i++) {
       const li = document.createElement('li');
       li.innerHTML = `<a class="dropdown-item" href="/textbook/chapter/${store.chapter}/page/${i}" data-navigo>Страница ${i}</a>`;
+      if (this.easyPages.indexOf(i) !== -1) {
+        li.classList.add('easy-page');
+      }
       choosePage?.append(li);
     }
     return this.container;

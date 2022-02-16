@@ -1,5 +1,6 @@
 @import '../../../../node_modules/bootstrap/scss/bootstrap';
 @import '../../../../node_modules/bootstrap/scss/variables';
+@import '../../../variables.scss';
 
 .chapter1 {
   background-color: $yellow-100;
@@ -27,4 +28,8 @@
 
 .chapter7 {
   background-color: $yellow-700;
+}
+
+.easy-page {
+  background-color: $learned-word-list-color;
 }
