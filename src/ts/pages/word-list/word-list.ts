@@ -18,7 +18,7 @@ function changeElementsVisibility(): void {
   if (!AuthService.isLogged()) {
     const authUserVisibleButtons = document.querySelectorAll<HTMLElement>('.auth-user-visible-buttons');
     authUserVisibleButtons?.forEach((item) => item.classList.add('invisible-btn'));
-  } else if (AuthService.isLogged() && store.chapter === 7) {
+  } else if (AuthService.isLogged() && store.chapter === constants.difficultWordsChapter) {
     const buttonLearned = document.querySelectorAll<HTMLElement>('.button-learned');
     buttonLearned?.forEach((item) => item.classList.add('invisible-btn'));
   }
@@ -42,7 +42,7 @@ export default async function bootstrap(): Promise<void> {
       const allHardOrEasyWordsInChapter = await getUserWords(userId, 'hardOrEasy');
       const counterHardOrEasyWordsOnPage = allHardOrEasyWordsInChapter.map((item) => item.page);
       for (let i = 0; i < constants.numberOfPagesAllChapters; i++) {
-        if (counterHardOrEasyWordsOnPage.filter((item) => item === i).length === 20) {
+        if (counterHardOrEasyWordsOnPage.filter((item) => item === i).length === constants.numberOfWords) {
           easyPages.push(i + 1);
         }
       }
@@ -52,13 +52,13 @@ export default async function bootstrap(): Promise<void> {
   async function getWordsForPage(): Promise<JSONWords | undefined> {
     let wordsArray;
     if (AuthService.isLogged()) {
-      if (userId && store.chapter !== 7) {
+      if (userId && store.chapter !== constants.difficultWordsChapter) {
         wordsArray = await getUserWords(userId, 'all');
         await checkIsEasyPage();
       } else if (userId) {
         wordsArray = await getUserWords(userId, 'allHard');
       }
-    } else if (store.chapter !== 7) {
+    } else if (store.chapter !== constants.difficultWordsChapter) {
       wordsArray = await getWords();
     }
     return wordsArray;
@@ -101,14 +101,14 @@ export default async function bootstrap(): Promise<void> {
     wordsContainer.append(wordCard.render());
   });
 
-  if (store.markedWordsCounter === 20 && store.chapter !== 7) {
+  if (store.markedWordsCounter === constants.numberOfWords && store.chapter !== constants.difficultWordsChapter) {
     main.classList.add('easy-main');
   }
 
   main.append(wordsContainer);
   const wordListNav = new WordListNav(easyPages);
   main?.prepend(wordListNav.render());
-  if (store.chapter !== 7) {
+  if (store.chapter !== constants.difficultWordsChapter) {
     const prevNextButtons = new PrevNextButtons();
     main.append(prevNextButtons.render());
   }

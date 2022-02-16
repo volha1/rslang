@@ -115,10 +115,10 @@ export default class WordCard extends Component {
         if (buttonLearned) {
           buttonLearned.disabled = false;
         }
-        if (store.markedWordsCounter === 20) {
+        if (store.markedWordsCounter === constants.numberOfWords) {
           window.location.reload();
         }
-      } else if (userId && this._id && store.chapter === 7) {
+      } else if (userId && this._id && store.chapter === constants.difficultWordsChapter) {
         await deleteUserWord(userId, this._id);
         window.location.reload();
       }
@@ -144,7 +144,7 @@ export default class WordCard extends Component {
         if (buttonDifficult) {
           buttonDifficult.disabled = false;
         }
-        if (store.markedWordsCounter === 20) {
+        if (store.markedWordsCounter === constants.numberOfWords) {
           window.location.reload();
         }
       }

@@ -15,7 +15,7 @@ export default class WordListNav extends Component {
   render(): HTMLElement {
     this.container.innerHTML = template(WordListNavHTML)({ chapter: store.chapter, page: store.page });
     const gamesFromPage = this.container.querySelector<HTMLButtonElement>('.games-from-page');
-    if (gamesFromPage && store.markedWordsCounter === 20) {
+    if (gamesFromPage && store.markedWordsCounter === constants.numberOfWords) {
       gamesFromPage.disabled = true;
       gamesFromPage.style.cursor = 'not-allowed';
     }
@@ -32,7 +32,7 @@ export default class WordListNav extends Component {
     }
     const choosePage = this.container.querySelector('.choose-page');
     let numberOfPages = constants.numberOfPagesAllChapters;
-    if (store.chapter === 7) {
+    if (store.chapter === constants.difficultWordsChapter) {
       numberOfPages = constants.numberOfPagesChapter7;
     }
     for (let i = 1; i <= numberOfPages; i++) {

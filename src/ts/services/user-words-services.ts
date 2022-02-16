@@ -1,6 +1,6 @@
 import * as constants from '../constants';
 import ResponseCodes from '../enums/responseCodes';
-import { UserWord, UserWordById } from '../types/user-words';
+import { UserWordById } from '../types/user-words';
 import UserService from './user-service';
 import { JSONWord, JSONWords } from '../types/word';
 import store from '../store';
@@ -59,34 +59,10 @@ export async function deleteUserWord(userId: string, wordId: string): Promise<vo
   });
 }
 
-export async function getAllUserWords(userId: string): Promise<Array<UserWord>> {
-  const response = await fetch(`${constants.usersUrl}/${userId}/words`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-    },
-  });
-  const content = await response.json();
-  return content;
-}
-
-export async function getAllUserWordIds(): Promise<string[]> {
-  const userId = localStorage.getItem(constants.userId);
-  let allUsersWordIds: string[] | [] = [];
-  if (userId) {
-    const allUsersWords = await getAllUserWords(userId);
-    allUsersWordIds = allUsersWords.filter((item) => item.difficulty === 'hard').map((item) => item.wordId);
-  }
-  return allUsersWordIds;
-}
-
 export async function getUserWords(userId: string, filter: string): Promise<JSONWords> {
   const page = store.page - 1;
   const group = store.chapter - 1;
   const objAll = { $and: [{ page, group }] };
-  const objHard = { $and: [{ 'userWord.difficulty': 'hard', page, group }] };
-  const objEasy = { $and: [{ 'userWord.difficulty': 'easy', page, group }] };
   const objAllHard = { $and: [{ 'userWord.difficulty': 'hard' }] };
   const objHardOrEasy = {
     $and: [{ $or: [{ 'userWord.difficulty': 'hard' }, { 'userWord.difficulty': 'easy' }] }, { group }],
@@ -94,12 +70,6 @@ export async function getUserWords(userId: string, filter: string): Promise<JSON
   let obj = {};
   let wordsPerPage = 20;
   switch (filter) {
-    case 'hard':
-      obj = objHard;
-      break;
-    case 'easy':
-      obj = objEasy;
-      break;
     case 'allHard':
       obj = objAllHard;
       wordsPerPage = 3600;

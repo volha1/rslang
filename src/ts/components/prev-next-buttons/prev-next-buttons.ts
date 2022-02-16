@@ -3,6 +3,7 @@ import Component from '../abstract-component';
 import PrevNextButtonsHTML from './prev-next-buttons.html';
 import store from '../../store';
 import { router } from '../../router';
+import * as constants from '../../constants';
 
 export default class PrevNextButtons extends Component {
   constructor() {
@@ -22,7 +23,7 @@ export default class PrevNextButtons extends Component {
       }
     });
     next?.addEventListener('click', () => {
-        if (store.page !== 30) {
+        if (store.page !== constants.numberOfPagesAllChapters) {
           router?.navigate(`/textbook/chapter/${store.chapter}/page/${store.page + 1}`);
         }
       });
