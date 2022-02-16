@@ -1,5 +1,9 @@
 @import '../node_modules/bootstrap/scss/bootstrap';
 
+main {
+  background-image: url('./assets/jpg/bd.jpg');
+}
+
 .visible {
   visibility: visible !important;
   display: block;

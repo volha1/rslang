@@ -1,3 +1,4 @@
+const { offset } = require("@popperjs/core");
 
 module.exports = {
     root: true,
@@ -27,10 +28,13 @@ module.exports = {
             }
         ],
         'import/no-cycle': 'off',
+        'import/no-mutable-exports': 'off',
         'no-plusplus': 'off',
         'no-shadow': 'off',
         'no-restricted-syntax': 'off',
         'no-param-reassign': 'off',
+        'quote-props':'off',
+        'no-underscore-dangle':'off',
         'no-unused-vars': 'off', /*instead of this rule was added '@typescript-eslint/no-unused-vars'*/
         // formatting is forced by prettier
         'linebreak-style': 'off',
@@ -44,6 +48,7 @@ module.exports = {
         'comma-spacing': 'off',
         'operator-linebreak': 'off',
         'space-infix-ops': 'off',
+        'space-before-blocks': 'off',
     },
     settings: {
         'import/parsers': {

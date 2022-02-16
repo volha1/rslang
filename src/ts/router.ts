@@ -7,9 +7,15 @@ import sprint from './pages/sprint/sprint';
 import wordList from './pages/word-list/word-list';
 import * as constants from './constants';
 import Routes from './enums/routes';
+import store from './store';
+
+export let router: undefined | Navigo;
 
 export default function routing(): void {
-  const router = new Navigo('/', { hash: true });
+  if (router) {
+    return;
+  }
+  router = new Navigo('/', { hash: true });
   router.notFound(() => {
     localStorage.setItem(constants.currentRoute, Routes.main);
     main();
@@ -23,9 +29,13 @@ export default function routing(): void {
       localStorage.setItem(constants.currentRoute, Routes.textbook);
       textbook();
     })
-    .on('/textbook/chapter/:chapter/page/:page', () => {
-      localStorage.setItem(constants.currentRoute, Routes.textbook);
-      wordList(1, 1);
+    .on('/textbook/chapter/:chapter/page/:page', (data) => {
+      localStorage.setItem(constants.currentRoute, Routes.wordList);
+      if (data?.data?.chapter) {
+        store.chapter = Number(data?.data?.chapter);
+        store.page = Number(data?.data?.page);
+      }
+      wordList();
     })
     .on('/mini-games/audio-call', () => {
       localStorage.setItem(constants.currentRoute, Routes.miniGames);
