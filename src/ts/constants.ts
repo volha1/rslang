@@ -1,3 +1,4 @@
+const url = 'https://learnwords-rslang-01.herokuapp.com/';
 const usersUrl = 'https://learnwords-rslang-01.herokuapp.com/users';
 const signInUrl = 'https://learnwords-rslang-01.herokuapp.com/signin';
 const wordsUrl = 'https://learnwords-rslang-01.herokuapp.com/words';
@@ -6,6 +7,8 @@ const refreshToken = 'refresh-token';
 const currentRoute = 'current-route';
 const userName = 'user-name';
 const userId = 'user-id';
+const appPagesAmount = 30;
+const gameAnswerOptionsNumber = 4;
 const numberOfChaptersNoUser = 6;
 const numberOfChaptersUser = 7;
 const difficultWordsChapter = 7;
@@ -14,6 +17,7 @@ const numberOfPagesChapter7 = 1;
 const numberOfWords = 20;
 
 export {
+  url,
   usersUrl,
   signInUrl,
   wordsUrl,
@@ -28,4 +32,6 @@ export {
   numberOfPagesAllChapters,
   numberOfPagesChapter7,
   numberOfWords,
+  appPagesAmount,
+  gameAnswerOptionsNumber
 };

@@ -1,0 +1,24 @@
+<div class="modal fade" tabindex="-1" id="progressModal" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <ul class="nav nav-tabs mb-4">
+          <li class="nav-item">
+            <button class="nav-link active"> Результат </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link" data-bs-target="#resultModal" data-bs-toggle="modal"> Посмотреть мои слова </button>
+          </li>
+        </ul>
+        <p>Процент правильно угаданных слов:</p>
+        <div class="progress mb-4">
+          <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: <%-percentage%>%" aria-valuenow="<%-percentage%>" aria-valuemin="0" aria-valuemax="100"><%-percentage%>%</div>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <a href="/mini-games/audio-call" class="btn btn-primary btn-repeat" data-navigo>повторить</a>
+        <a href="/textbook" class="btn btn-primary btn-textbook" data-navigo>учебник</a>
+      </div>
+    </div>
+  </div>
+</div>
