@@ -6,6 +6,7 @@ import audioCall from '../../pages/audio-call/audio-call';
 import state from '../../state';
 
 export default class AudioCallOptions extends Component {
+  private showAnswer: boolean = false;
   constructor() {
     super('div', 'audiocall-options');
   }
@@ -62,5 +63,42 @@ export default class AudioCallOptions extends Component {
         toggleSections();
       }
     });
+
+    document.addEventListener('keydown', this.actionKeys, { once: true });
+  }
+
+  private async actionKeys(event: KeyboardEvent): Promise<void> {
+    if (+event.key === 1) {
+      document.querySelector<HTMLButtonElement>("[data-number='1']")?.click();
+    }
+
+    if (+event.key === 2) {
+      document.querySelector<HTMLButtonElement>("[data-number='2']")?.click();
+    }
+
+    if (+event.key === 3) {
+      document.querySelector<HTMLButtonElement>("[data-number='3']")?.click();
+    }
+
+    if (+event.key === 4) {
+      document.querySelector<HTMLButtonElement>("[data-number='4']")?.click();
+    }
+
+    if (+event.key === 5) {
+      document.querySelector<HTMLButtonElement>("[data-number='5']")?.click();
+    }
+
+    if (event.key === ' ' && !this.showAnswer) {
+      document.querySelector<HTMLButtonElement>("[data-number='6']")?.click();
+      this.showAnswer = true;
+      console.log('show answer ' + this.showAnswer);
+      // this.container.querySelector<HTMLButtonElement>('.btn-next')?.click();
+    }
+
+    if (event.key === ' ' && this.showAnswer) {
+      console.log('show answer ' + this.showAnswer);
+      //this.showAnswer = false;
+      //document.querySelector<HTMLButtonElement>('.btn-next')?.click();
+    }
   }
 }
