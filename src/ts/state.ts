@@ -1,8 +1,8 @@
-import Word from './entity/word';
+import { JSONWord } from './types/word';
 
-const gameWordsForGuessing: Array<Word> = [];
-const gameRightAnswers: Array<Word> = [];
-const gameWrongAnswers: Array<Word> = [];
+const gameWordsForGuessing: Array<JSONWord> = [];
+const gameRightAnswers: Array<JSONWord> = [];
+const gameWrongAnswers: Array<JSONWord> = [];
 const wordsCounter = 0;
 const repeatGameBtnLink = '';
 

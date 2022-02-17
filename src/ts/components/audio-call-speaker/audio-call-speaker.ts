@@ -3,10 +3,10 @@ import Component from '../abstract-component';
 import AudioCallSpeakerHTML from './audio-call-speaker.html';
 import * as constants from '../../constants';
 import state from '../../state';
-import Word from '../../entity/word';
+import { JSONWord } from '../../types/word';
 
 export default class AudioCallSpeaker extends Component {
-  private word: Word;
+  private word: JSONWord;
 
   constructor() {
     super('div', 'row mb-5 speaker-button');

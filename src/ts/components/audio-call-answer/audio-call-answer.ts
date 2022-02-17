@@ -1,12 +1,12 @@
 import template from 'lodash.template';
-import Word from '../../entity/word';
+import { JSONWord } from '../../types/word';
 import Component from '../abstract-component';
 import AudioCallHTML from './audio-call-answer.html';
 import * as constants from '../../constants';
 import state from '../../state';
 
 export default class AudioCallAnswer extends Component {
-  private word: Word;
+  private word: JSONWord;
 
   constructor() {
     super('div', 'row mb-2 audiocall-answer invisible');
