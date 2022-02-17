@@ -3,21 +3,15 @@ import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import Registration from '../../components/registration/registration';
 import Login from '../../components/login/login';
-import GameSectionsHTML from './game-sections.html';
+import GameStartHTML from './game-start.html';
 import store from '../../store';
 import state from '../../state';
-import * as utils from '../../utils';
-import * as constants from '../../constants';
-import './game-sections.scss';
+import './game-start.scss';
 
 function addListeners(): void {
-  document.querySelectorAll<HTMLElement>('.section-link').forEach((item) => {
-    item.addEventListener('click', async (event) => {
-      store.chapter = +(<HTMLElement>event.target).dataset.section!;
-      store.page = utils.getRandomNumber(constants.appPagesAmount);
-      state.repeatGameBtnLink = '/mini-games/audio-call';
+  document.querySelector('.start-link')!.addEventListener('click', async () => {
+       state.repeatGameBtnLink = '/mini-games/audio-call/start';
     });
-  });
 }
 
 export default function bootstrap(): void {
@@ -29,7 +23,7 @@ export default function bootstrap(): void {
   body?.append(header.render());
   const main = document.createElement('main');
   main.classList.add('main');
-  main.innerHTML = template(GameSectionsHTML)();
+  main.innerHTML = template(GameStartHTML)({ chapter: store.chapter });
   body?.append(main);
   const footer = new Footer();
   body?.append(footer.render());

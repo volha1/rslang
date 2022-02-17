@@ -2,8 +2,10 @@ import template from 'lodash.template';
 import Component from '../abstract-component';
 import GameResultHTML from './game-result.html';
 import state from '../../state';
+import store from '../../store';
 import * as constants from '../../constants';
 import * as utils from '../../utils';
+import { router } from '../../router';
 
 export default class GameResult extends Component {
   constructor() {
@@ -28,7 +30,14 @@ export default class GameResult extends Component {
       });
     });
 
-    this.container.querySelector<HTMLLinkElement>('.btn-repeat')?.addEventListener('click', utils.cleanGameData);
-    this.container.querySelector<HTMLLinkElement>('.btn-textbook')?.addEventListener('click', utils.cleanGameData);
+    this.container.querySelector('.btn-repeat')?.addEventListener('click', () => {
+      utils.cleanGameData();
+      router?.navigate(`${state.repeatGameBtnLink}`);
+    });
+
+    this.container.querySelector('.btn-textbook')?.addEventListener('click', () => {
+      utils.cleanGameData();
+      router?.navigate('/textbook');
+    });
   }
 }

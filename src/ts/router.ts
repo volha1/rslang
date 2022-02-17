@@ -6,6 +6,7 @@ import audioCall from './pages/audio-call/audio-call';
 import sprint from './pages/sprint/sprint';
 import wordList from './pages/word-list/word-list';
 import gameSections from './pages/game-sections/game-sections';
+import gameStart from './pages/game-start/game-start';
 import * as constants from './constants';
 import Routes from './enums/routes';
 import store from './store';
@@ -41,6 +42,10 @@ export default function routing(): void {
     .on('/mini-games/audio-call', () => {
       localStorage.setItem(constants.currentRoute, Routes.miniGames);
       gameSections();
+    })
+    .on('/mini-games/audio-call/start', () => {
+      localStorage.setItem(constants.currentRoute, Routes.miniGames);
+      gameStart();
     })
     .on('/mini-games/audio-call/chapter/:chapter', () => {
       localStorage.setItem(constants.currentRoute, Routes.miniGames);
