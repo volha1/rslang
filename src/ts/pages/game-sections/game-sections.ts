@@ -4,6 +4,7 @@ import Footer from '../../components/footer/footer';
 import Registration from '../../components/registration/registration';
 import Login from '../../components/login/login';
 import GameSectionsHTML from './game-sections.html';
+import AuthService from '../../services/auth-service';
 import store from '../../store';
 import state from '../../state';
 import * as utils from '../../utils';
@@ -18,6 +19,14 @@ function addListeners(): void {
       state.repeatGameBtnLink = '/mini-games/audio-call';
     });
   });
+}
+
+function changeElementsVisibility(): void {
+  if (AuthService.isLogged()) {
+    document.querySelector("[data-section='7']")?.classList.add('visible');
+  } else {
+    document.querySelector("[data-section='7']")?.classList.add('invisible');
+  }
 }
 
 export default function bootstrap(): void {
@@ -38,4 +47,5 @@ export default function bootstrap(): void {
   const login = new Login();
   main.append(login.render());
   addListeners();
+  changeElementsVisibility();
 }

@@ -1,14 +1,26 @@
 import { JSONWord } from './types/word';
 import getWords from './services/word-list-service';
+import { getUserWords } from './services/user-words-services';
 import state from './state';
+import store from './store';
 import * as constants from './constants';
+import AuthService from './services/auth-service';
 
 function getRandomNumber(max: number): number {
   return Math.floor(1 + Math.random() * max);
 }
 
 async function getWordsPerPage(): Promise<void> {
-  state.gameWordsForGuessing = await getWords();
+  if (AuthService.isLogged()) {
+    const userId = localStorage.getItem(constants.userId);
+    if (store.chapter !== constants.difficultWordsChapter) {
+      state.gameWordsForGuessing = await getUserWords(userId!, 'all');
+    } else if (userId) {
+      state.gameWordsForGuessing = await getUserWords(userId, 'allHard');
+    }
+  } else if (store.chapter !== constants.difficultWordsChapter) {
+    state.gameWordsForGuessing = await getWords();
+  }
 }
 
 function shuffleArray(array: Array<JSONWord>): Array<JSONWord> {
@@ -24,7 +36,7 @@ function shuffleArray(array: Array<JSONWord>): Array<JSONWord> {
 function getRandomAnswerOptions(): Array<JSONWord> {
   const answer = state.gameWordsForGuessing[state.wordsCounter];
   const guessingWords = [...state.gameWordsForGuessing];
-  const newWords = shuffleArray(guessingWords).filter((item) => item.id !== answer.id);
+  const newWords = shuffleArray(guessingWords).filter((item) => item.word !== answer.word);
   const result = [];
   for (let i = 0; i < constants.gameAnswerOptionsNumber; i++) {
     result.push(newWords[i]);
