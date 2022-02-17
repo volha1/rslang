@@ -67,9 +67,13 @@ export async function getUserWords(userId: string, filter: string): Promise<JSON
   const objHardOrEasy = {
     $and: [{ $or: [{ 'userWord.difficulty': 'hard' }, { 'userWord.difficulty': 'easy' }] }, { group }],
   };
+  const objAllExcludedEasy = { $and: [{ $or: [{ 'userWord.difficulty': 'hard' }, { 'userWord': null }] }, { page, group }] };
   let obj = {};
   let wordsPerPage = 20;
   switch (filter) {
+    case 'allExcludedEasy':
+      obj = objAllExcludedEasy;
+      break;
     case 'allHard':
       obj = objAllHard;
       wordsPerPage = 3600;

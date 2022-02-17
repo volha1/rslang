@@ -13,14 +13,24 @@ function getRandomNumber(max: number): number {
 async function getWordsPerPage(): Promise<void> {
   if (AuthService.isLogged()) {
     const userId = localStorage.getItem(constants.userId);
-    if (store.chapter !== constants.difficultWordsChapter) {
-      state.gameWordsForGuessing = await getUserWords(userId!, 'all');
+    const fromTextbook = (state.repeatGameBtnLink).includes('start');
+    if (userId && store.chapter !== constants.difficultWordsChapter && fromTextbook) {
+      state.gameWordsForGuessing = await getUserWords(userId, 'allExcludedEasy');
+    } else if (userId && store.chapter !== constants.difficultWordsChapter && !fromTextbook) {
+      state.gameWordsForGuessing = await getUserWords(userId, 'all');
     } else if (userId) {
       state.gameWordsForGuessing = await getUserWords(userId, 'allHard');
     }
   } else if (store.chapter !== constants.difficultWordsChapter) {
     state.gameWordsForGuessing = await getWords();
   }
+}
+
+async function getWordsForGame(): Promise<void> {
+  do {
+    // eslint-disable-next-line no-await-in-loop
+    await getWordsPerPage();
+  } while (state.gameWordsForGuessing.length < constants.numberOfWords);
 }
 
 function shuffleArray(array: Array<JSONWord>): Array<JSONWord> {

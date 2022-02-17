@@ -21,12 +21,10 @@ export default class GameProgress extends Component {
 
   addListeners(): void {
     this.container.querySelector('.btn-repeat')?.addEventListener('click', () => {
-      utils.cleanGameData();
       router?.navigate(`${state.repeatGameBtnLink}`);
     });
 
     this.container.querySelector('.btn-textbook')?.addEventListener('click', () => {
-      utils.cleanGameData();
       router?.navigate('/textbook');
     });
   }

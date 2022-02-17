@@ -30,6 +30,7 @@ function changeElementsVisibility(): void {
 }
 
 export default function bootstrap(): void {
+  utils.cleanGameData();
   const body = document.querySelector<HTMLElement>('body');
   if (body) {
     body.innerHTML = '';

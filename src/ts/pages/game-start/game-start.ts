@@ -6,6 +6,7 @@ import Login from '../../components/login/login';
 import GameStartHTML from './game-start.html';
 import store from '../../store';
 import state from '../../state';
+import * as utils from '../../utils';
 import './game-start.scss';
 
 function addListeners(): void {
@@ -15,6 +16,7 @@ function addListeners(): void {
 }
 
 export default function bootstrap(): void {
+  utils.cleanGameData();
   const body = document.querySelector<HTMLElement>('body');
   if (body) {
     body.innerHTML = '';

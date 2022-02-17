@@ -30,12 +30,10 @@ export default class GameResult extends Component {
     });
 
     this.container.querySelector('.btn-repeat')?.addEventListener('click', () => {
-      utils.cleanGameData();
       router?.navigate(`${state.repeatGameBtnLink}`);
     });
 
     this.container.querySelector('.btn-textbook')?.addEventListener('click', () => {
-      utils.cleanGameData();
       router?.navigate('/textbook');
     });
   }
