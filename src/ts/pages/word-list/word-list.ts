@@ -18,6 +18,8 @@ function changeElementsVisibility(): void {
   if (!AuthService.isLogged()) {
     const authUserVisibleButtons = document.querySelectorAll<HTMLElement>('.auth-user-visible-buttons');
     authUserVisibleButtons?.forEach((item) => item.classList.add('invisible-btn'));
+    const wordProgressBar = document.querySelectorAll<HTMLElement>('.word-progress-bar');
+    wordProgressBar?.forEach((item) => item.classList.add('invisible-list'));
   } else if (AuthService.isLogged() && store.chapter === constants.difficultWordsChapter) {
     const buttonLearned = document.querySelectorAll<HTMLElement>('.button-learned');
     buttonLearned?.forEach((item) => item.classList.add('invisible-btn'));
