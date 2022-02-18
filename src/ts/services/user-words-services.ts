@@ -8,8 +8,6 @@ import store from '../store';
 const token = localStorage.getItem(constants.token);
 
 export async function createUserWord(userId: string, wordId: string, word: UserWordById): Promise<void> {
-  let isUnauthorized = false;
-  async function sendRequest(): Promise<number> {
     const response = await fetch(`${constants.usersUrl}/${userId}/words/${wordId}`, {
       method: 'POST',
       headers: {
@@ -19,18 +17,10 @@ export async function createUserWord(userId: string, wordId: string, word: UserW
       },
       body: JSON.stringify(word),
     });
-    return response.status;
+    if (response.status === ResponseCodes.Unauthorized) {
+      UserService.refreshToken();
+    }
   }
-  await sendRequest();
-  //   if ((await sendRequest()) === ResponseCodes.Unauthorized) {
-  //       if (isUnauthorized) {
-  //          Вызвать форму для логирования
-  //       }
-  //     UserService.refreshToken();
-  //     isUnauthorized = true;
-  //     sendRequest();
-  //   }
-}
 
 export async function getUserWord(userId: string, wordId: string): Promise<{ content: UserWordById; status: number }> {
   const response = await fetch(`${constants.usersUrl}/${userId}/words/${wordId}`, {
