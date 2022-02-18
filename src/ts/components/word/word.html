@@ -17,8 +17,20 @@
             <%=textExample%> / <%-textExampleTranslate%>
         </p>
         <div class="d-grid gap-2 d-md-block">
-            <button class="btn btn-danger button-difficult auth-user-visible-buttons" type="button"><%-buttonContent%></button>
-            <button class="btn btn-success button-learned auth-user-visible-buttons" type="button">Отметить как изученное</button>
+            <button class="btn btn-danger button-difficult auth-user-visible-buttons" type="button">
+                <%-buttonContent%>
+            </button>
+            <button class="btn btn-success button-learned auth-user-visible-buttons" type="button">Отметить как
+                изученное</button>
+        </div>
+        <div class="row container word-progress-bar mt-2">
+            <ul class="list-group list-group-horizontal">Прогресс:
+                <li class="list-group-item mx-1 list-group-item-success"></li>
+                <li class="list-group-item mx-1 list-group-item-danger"></li>
+                <li class="list-group-item mx-1 list-group-item-danger"></li>
+                <li class="list-group-item mx-1 list-group-item-success"></li>
+                <li class="list-group-item mx-1 list-group-item-danger"></li>
+            </ul>
         </div>
     </div>
 </div>

@@ -8,18 +8,28 @@ import store from '../store';
 const token = localStorage.getItem(constants.token);
 
 export async function createUserWord(userId: string, wordId: string, word: UserWordById): Promise<void> {
-  const response = await fetch(`${constants.usersUrl}/${userId}/words/${wordId}`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(word),
-  });
-  if (response.status === ResponseCodes.Unauthorized) {
-    UserService.refreshToken();
+  let isUnauthorized = false;
+  async function sendRequest(): Promise<number> {
+    const response = await fetch(`${constants.usersUrl}/${userId}/words/${wordId}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(word),
+    });
+    return response.status;
   }
+  await sendRequest();
+  //   if ((await sendRequest()) === ResponseCodes.Unauthorized) {
+  //       if (isUnauthorized) {
+  //          Вызвать форму для логирования
+  //       }
+  //     UserService.refreshToken();
+  //     isUnauthorized = true;
+  //     sendRequest();
+  //   }
 }
 
 export async function getUserWord(userId: string, wordId: string): Promise<{ content: UserWordById; status: number }> {
@@ -67,7 +77,9 @@ export async function getUserWords(userId: string, filter: string): Promise<JSON
   const objHardOrEasy = {
     $and: [{ $or: [{ 'userWord.difficulty': 'hard' }, { 'userWord.difficulty': 'easy' }] }, { group }],
   };
-  const objAllExcludedEasy = { $and: [{ $or: [{ 'userWord.difficulty': 'hard' }, { 'userWord': null }] }, { page, group }] };
+  const objAllExcludedEasy = {
+    $and: [{ $or: [{ 'userWord.difficulty': 'hard' }, { userWord: null }] }, { page, group }],
+  };
   let obj = {};
   let wordsPerPage = 20;
   switch (filter) {
