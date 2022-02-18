@@ -5,7 +5,6 @@ import './word-list-nav.scss';
 import AuthService from '../../services/auth-service';
 import * as constants from '../../constants';
 import store from '../../store';
-import state from '../../state';
 
 export default class WordListNav extends Component {
   easyPages: number[];

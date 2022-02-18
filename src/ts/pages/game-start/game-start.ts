@@ -5,18 +5,14 @@ import Registration from '../../components/registration/registration';
 import Login from '../../components/login/login';
 import GameStartHTML from './game-start.html';
 import store from '../../store';
-import state from '../../state';
 import * as utils from '../../utils';
+import { router } from '../../router';
 import './game-start.scss';
 
-function addListeners(): void {
-  document.querySelector('.start-link')!.addEventListener('click', async () => {
-       state.repeatGameBtnLink = '/mini-games/audio-call/start';
-    });
-}
-
-export default function bootstrap(): void {
+export default async function bootstrap(): Promise<void> {
   utils.cleanGameData();
+  await utils.getWordsForGame();
+
   const body = document.querySelector<HTMLElement>('body');
   if (body) {
     body.innerHTML = '';
@@ -33,5 +29,5 @@ export default function bootstrap(): void {
   main.append(registration.render());
   const login = new Login();
   main.append(login.render());
-  addListeners();
+  router?.updatePageLinks();
 }

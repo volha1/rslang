@@ -14,7 +14,10 @@ export default class AudioCallSpeaker extends Component {
   }
 
   render(): HTMLElement {
-    new Audio(`${constants.url}${this.word.audio}`).play();
+    if (!state.preventAudioPlay) {
+      new Audio(`${constants.url}${this.word.audio}`).play();
+    }
+
     this.container.innerHTML = template(AudioCallSpeakerHTML)();
     this.addListeners();
     return this.container;

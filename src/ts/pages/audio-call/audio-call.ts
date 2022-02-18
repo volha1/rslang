@@ -7,11 +7,11 @@ import AudioCallAnswer from '../../components/audio-call-answer/audio-call-answe
 import AudioCallSpeaker from '../../components/audio-call-speaker/audio-call-speaker';
 import AudioCallOptions from '../../components/audio-call-options/audio-call-options';
 import './audio-call.scss';
-import * as utils from '../../utils';
 import { router } from '../../router';
+import state from '../../state';
 
  export default async function bootstrap(): Promise<void> {
-  await utils.getWordsPerPage();
+  console.log('words for guessing ' + state.gameWordsForGuessing.map(item => item.word));
   const body = document.querySelector<HTMLElement>('body');
   if (body) {
     body.innerHTML = '';

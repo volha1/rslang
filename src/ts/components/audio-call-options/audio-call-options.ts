@@ -23,70 +23,90 @@ export default class AudioCallOptions extends Component {
   }
 
   private addListeners(): void {
-    function toggleSections(): void {
-      document.querySelector<HTMLDivElement>('.audiocall-answer')?.classList.toggle('invisible');
-      document.querySelector<HTMLDivElement>('.speaker-button')?.classList.toggle('invisible');
-      document.querySelector<HTMLDivElement>('.btn-next')?.classList.toggle('invisible');
-      document.querySelector<HTMLDivElement>('.btn-unknown')?.classList.toggle('invisible');
+    function showAnswerElements(): void {
+      document.querySelector('.audiocall-answer')?.classList.remove('invisible');
+      document.querySelector('.btn-next')?.classList.remove('invisible');
+      document.querySelector('.speaker-button')?.classList.add('invisible');
+      document.querySelector('.btn-unknown')?.classList.add('invisible');
+      document
+        .querySelectorAll<HTMLButtonElement>('.btn-option')
+        .forEach((item) => {
+          item.style.pointerEvents = 'none';
+        });
+    }
+
+    function showGuessElements(): void {
+      document.querySelector('.audiocall-answer')?.classList.add('invisible');
+      document.querySelector('.btn-next')?.classList.add('invisible');
+      document.querySelector('.speaker-button')?.classList.remove('invisible');
+      document.querySelector('.btn-unknown')?.classList.remove('invisible');
     }
 
     this.container.querySelectorAll<HTMLElement>('.btn-option').forEach((item) => {
-      item.addEventListener('click', (event) => {
-        const guess = (<HTMLButtonElement>event.target).dataset.word;
-        const answerWordObject = state.gameWordsForGuessing[state.wordsCounter];
-        const answer = answerWordObject.wordTranslate;
+      item.addEventListener(
+        'click',
+        (event) => {
+          const guess = (<HTMLButtonElement>event.target).dataset.word;
+          const answerWordObject = state.gameWordsForGuessing[state.wordsCounter];
+          const answer = answerWordObject.wordTranslate;
+          (<HTMLButtonElement>event.target).classList.remove('btn-outline-info');
 
-        if (guess === answer) {
-          (<HTMLButtonElement>event.target).classList.remove('btn-outline-info');
-          (<HTMLButtonElement>event.target).classList.add('btn-success');
-          state.gameRightAnswers.push(answerWordObject!);
-        } else {
-          const rightAnswer = document.querySelector<HTMLButtonElement>(`[data-word="${answer}"]`)!;
-          (<HTMLButtonElement>event.target).classList.remove('btn-outline-info');
-          (<HTMLButtonElement>event.target).classList.add('btn-danger');
-          rightAnswer.classList.remove('btn-outline-info');
-          rightAnswer.classList.add('btn-success');
-          state.gameWrongAnswers.push(answerWordObject!);
-        }
-        toggleSections();
-      }, { once: true });
+          if (guess === answer) {
+            (<HTMLButtonElement>event.target).classList.add('btn-success');
+            state.gameRightAnswers.push(answerWordObject!);
+          } else {
+            const rightAnswer = document.querySelector<HTMLButtonElement>(`[data-word="${answer}"]`)!;
+            (<HTMLButtonElement>event.target).classList.add('btn-danger');
+            rightAnswer.classList.remove('btn-outline-info');
+            rightAnswer.classList.add('btn-success');
+            state.gameWrongAnswers.push(answerWordObject!);
+          }
+          showAnswerElements();
+        },
+        { once: true }
+      );
     });
 
     this.container.querySelector<HTMLButtonElement>('.btn-next')?.addEventListener('click', async () => {
       if (state.wordsCounter === state.gameWordsForGuessing.length - 1) {
+        state.preventAudioPlay = true;
         await audioCall();
         document.querySelector<HTMLButtonElement>('.btn-game-results')?.click();
       } else {
-        audioCall();
         state.wordsCounter += 1;
-        toggleSections();
+        audioCall();
+        showGuessElements();
       }
     });
 
-    document.addEventListener('keydown', (event) => {
-      if (+event.key === 1) {
-        document.querySelector<HTMLButtonElement>("[data-number='1']")?.click();
-      }
+    document.addEventListener(
+      'keydown',
+      (event) => {
+        if (+event.key === 1) {
+          document.querySelector<HTMLButtonElement>("[data-number='1']")?.click();
+        }
 
-      if (+event.key === 2) {
-        document.querySelector<HTMLButtonElement>("[data-number='2']")?.click();
-      }
+        if (+event.key === 2) {
+          document.querySelector<HTMLButtonElement>("[data-number='2']")?.click();
+        }
 
-      if (+event.key === 3) {
-        document.querySelector<HTMLButtonElement>("[data-number='3']")?.click();
-      }
+        if (+event.key === 3) {
+          document.querySelector<HTMLButtonElement>("[data-number='3']")?.click();
+        }
 
-      if (+event.key === 4) {
-        document.querySelector<HTMLButtonElement>("[data-number='4']")?.click();
-      }
+        if (+event.key === 4) {
+          document.querySelector<HTMLButtonElement>("[data-number='4']")?.click();
+        }
 
-      if (+event.key === 5) {
-        document.querySelector<HTMLButtonElement>("[data-number='5']")?.click();
-      }
+        if (+event.key === 5) {
+          document.querySelector<HTMLButtonElement>("[data-number='5']")?.click();
+        }
 
-      if (event.key === ' ') {
-        document.querySelector<HTMLButtonElement>("[data-number='6']")?.click();
-      }
-    }, { once: true });
+        if (event.key === ' ') {
+          document.querySelector<HTMLButtonElement>("[data-number='6']")?.click();
+        }
+      },
+      { once: true }
+    );
   }
 }

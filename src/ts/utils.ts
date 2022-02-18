@@ -15,7 +15,7 @@ async function getWordsPerPage(): Promise<void> {
     const userId = localStorage.getItem(constants.userId);
     const fromTextbook = (state.repeatGameBtnLink).includes('start');
     if (userId && store.chapter !== constants.difficultWordsChapter && fromTextbook) {
-      state.gameWordsForGuessing = await getUserWords(userId, 'allExcludedEasy');
+      state.gameWordsForGuessing.push(...await getUserWords(userId, 'allExcludedEasy'));
     } else if (userId && store.chapter !== constants.difficultWordsChapter && !fromTextbook) {
       state.gameWordsForGuessing = await getUserWords(userId, 'all');
     } else if (userId) {
@@ -26,13 +26,6 @@ async function getWordsPerPage(): Promise<void> {
   }
 }
 
-async function getWordsForGame(): Promise<void> {
-  do {
-    // eslint-disable-next-line no-await-in-loop
-    await getWordsPerPage();
-  } while (state.gameWordsForGuessing.length < constants.numberOfWords);
-}
-
 function shuffleArray(array: Array<JSONWord>): Array<JSONWord> {
   const arrayCopy = array;
   for (let i = arrayCopy.length - 1; i > 0; i -= 1) {
@@ -41,6 +34,18 @@ function shuffleArray(array: Array<JSONWord>): Array<JSONWord> {
   }
 
   return arrayCopy;
+}
+
+async function getWordsForGame(): Promise<void> {
+  const initialPage = store.page;
+  while (state.gameWordsForGuessing.length < constants.numberOfWords && store.page > 0) {
+    // eslint-disable-next-line no-await-in-loop
+    await getWordsPerPage();
+    store.page -= 1;
+  }
+
+  store.page = initialPage;
+  state.gameWordsForGuessing = shuffleArray(state.gameWordsForGuessing.slice(0, 20));
 }
 
 function getRandomAnswerOptions(): Array<JSONWord> {
@@ -61,6 +66,7 @@ function cleanGameData(): void {
   state.gameRightAnswers = [];
   state.gameWrongAnswers = [];
   state.gameWordsForGuessing = [];
+  state.preventAudioPlay = false;
 }
 
-export { getRandomNumber, shuffleArray, getWordsPerPage, getRandomAnswerOptions, cleanGameData };
+export { getRandomNumber, shuffleArray, getWordsPerPage, getRandomAnswerOptions, cleanGameData, getWordsForGame };

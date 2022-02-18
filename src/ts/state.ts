@@ -5,5 +5,6 @@ const gameRightAnswers: Array<JSONWord> = [];
 const gameWrongAnswers: Array<JSONWord> = [];
 const wordsCounter = 0;
 const repeatGameBtnLink = '';
+const preventAudioPlay = false;
 
-export default { gameWordsForGuessing, wordsCounter, gameRightAnswers, gameWrongAnswers, repeatGameBtnLink };
+export default { gameWordsForGuessing, wordsCounter, gameRightAnswers, gameWrongAnswers, repeatGameBtnLink, preventAudioPlay };

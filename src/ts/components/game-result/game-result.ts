@@ -3,7 +3,6 @@ import Component from '../abstract-component';
 import GameResultHTML from './game-result.html';
 import state from '../../state';
 import * as constants from '../../constants';
-import * as utils from '../../utils';
 import { router } from '../../router';
 
 export default class GameResult extends Component {

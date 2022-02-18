@@ -8,6 +8,7 @@ import AuthService from '../../services/auth-service';
 import store from '../../store';
 import state from '../../state';
 import * as utils from '../../utils';
+import { router } from '../../router';
 import * as constants from '../../constants';
 import './game-sections.scss';
 
@@ -29,8 +30,10 @@ function changeElementsVisibility(): void {
   }
 }
 
-export default function bootstrap(): void {
+export default async function bootstrap(): Promise<void> {
   utils.cleanGameData();
+  await utils.getWordsForGame();
+
   const body = document.querySelector<HTMLElement>('body');
   if (body) {
     body.innerHTML = '';
@@ -49,4 +52,5 @@ export default function bootstrap(): void {
   main.append(login.render());
   addListeners();
   changeElementsVisibility();
+  router?.updatePageLinks();
 }

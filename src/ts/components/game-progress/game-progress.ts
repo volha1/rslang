@@ -2,7 +2,6 @@ import template from 'lodash.template';
 import Component from '../abstract-component';
 import GameProgressHTML from './game-progress.html';
 import state from '../../state';
-import * as utils from '../../utils';
 import { router } from '../../router';
 
 export default class GameProgress extends Component {

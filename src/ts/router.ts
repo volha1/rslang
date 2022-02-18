@@ -10,6 +10,7 @@ import gameStart from './pages/game-start/game-start';
 import * as constants from './constants';
 import Routes from './enums/routes';
 import store from './store';
+import state from './state';
 
 export let router: undefined | Navigo;
 
@@ -44,6 +45,7 @@ export default function routing(): void {
       gameSections();
     })
     .on('/mini-games/audio-call/start', () => {
+      state.repeatGameBtnLink = '/mini-games/audio-call/start';
       localStorage.setItem(constants.currentRoute, Routes.miniGames);
       gameStart();
     })
