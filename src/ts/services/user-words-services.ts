@@ -4,23 +4,21 @@ import { UserWordById } from '../types/user-words';
 import UserService from './user-service';
 import { JSONWord, JSONWords } from '../types/word';
 import store from '../store';
+import LocalStorageService from './storage-service';
 
 const token = localStorage.getItem(constants.token);
 
 export async function createUserWord(userId: string, wordId: string, word: UserWordById): Promise<void> {
-    const response = await fetch(`${constants.usersUrl}/${userId}/words/${wordId}`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(word),
-    });
-    if (response.status === ResponseCodes.Unauthorized) {
-      UserService.refreshToken();
-    }
-  }
+  await fetch(`${constants.usersUrl}/${userId}/words/${wordId}`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(word),
+  });
+}
 
 export async function getUserWord(userId: string, wordId: string): Promise<{ content: UserWordById; status: number }> {
   const response = await fetch(`${constants.usersUrl}/${userId}/words/${wordId}`, {
@@ -31,12 +29,12 @@ export async function getUserWord(userId: string, wordId: string): Promise<{ con
     },
   });
   const content = await response.json();
-  const status = await response.status;
+  const { status } = response;
   return { content, status };
 }
 
 export async function updateUserWord(userId: string, wordId: string, word: UserWordById): Promise<void> {
-  const response = await fetch(`${constants.usersUrl}/${userId}/words/${wordId}`, {
+  await fetch(`${constants.usersUrl}/${userId}/words/${wordId}`, {
     method: 'PUT',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -45,9 +43,6 @@ export async function updateUserWord(userId: string, wordId: string, word: UserW
     },
     body: JSON.stringify(word),
   });
-  if (response.status === ResponseCodes.Unauthorized) {
-    UserService.refreshToken();
-  }
 }
 
 export async function deleteUserWord(userId: string, wordId: string): Promise<void> {
@@ -88,29 +83,50 @@ export async function getUserWords(userId: string, filter: string): Promise<JSON
     default:
       obj = objAll;
   }
-  const response = await fetch(
-    `${constants.usersUrl}/${userId}/aggregatedWords?wordsPerPage=${wordsPerPage}&filter=${JSON.stringify(obj)}`,
-    {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: 'application/json',
-      },
+  async function sendRequest(): Promise<Response> {
+    const response = await fetch(
+      `${constants.usersUrl}/${userId}/aggregatedWords?wordsPerPage=${wordsPerPage}&filter=${JSON.stringify(obj)}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json',
+        },
+      }
+    );
+    return response;
+  }
+  if ((await sendRequest()).status === ResponseCodes.Unauthorized) {
+    UserService.refreshToken();
+    if ((await sendRequest()).status === ResponseCodes.Unauthorized) {
+      LocalStorageService.deleteUserData();
+      window.location.reload();
     }
-  );
+  }
+  const response = await sendRequest();
   const content = await response.json();
   const wordArray = content[0].paginatedResults;
   return wordArray;
 }
 
 export async function getAggregatedUserWord(userId: string, wordId: string): Promise<JSONWord> {
-  const response = await fetch(`${constants.usersUrl}/${userId}/aggregatedWords/${wordId}`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-    },
-  });
+  async function sendRequest(): Promise<Response> {
+    const response = await fetch(`${constants.usersUrl}/${userId}/aggregatedWords/${wordId}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/json',
+      },
+    });
+    return response;
+  }
+  if ((await sendRequest()).status === ResponseCodes.Unauthorized) {
+    UserService.refreshToken();
+    if ((await sendRequest()).status === ResponseCodes.Unauthorized) {
+      document.querySelector<HTMLButtonElement>('.btn-login')?.click();
+    }
+  }
+  const response = await sendRequest();
   const content = await response.json();
   const word = content[0];
   return word;
