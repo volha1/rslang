@@ -58,7 +58,7 @@ export default class WordCard extends Component {
     const buttonLearned = this.container.querySelector<HTMLButtonElement>('.button-learned');
     if (this.userWord?.difficulty && this.userWord.difficulty === 'hard') {
       this.container.classList.add('hard');
-      if (buttonDifficult) {
+      if (buttonDifficult && store.chapter !== constants.difficultWordsChapter) {
         buttonDifficult.disabled = true;
       }
       store.markedWordsCounter += 1;
