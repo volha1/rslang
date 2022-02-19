@@ -8,8 +8,13 @@ import AudioCallSpeaker from '../../components/audio-call-speaker/audio-call-spe
 import AudioCallOptions from '../../components/audio-call-options/audio-call-options';
 import './audio-call.scss';
 import { router } from '../../router';
+import state from '../../state';
+import * as utils from '../../utils';
 
  export default async function bootstrap(): Promise<void> {
+  if (state.gameWordsForGuessing.length === 0) {
+    await utils.getWordsForGame();
+  }
   const body = document.querySelector<HTMLElement>('body');
   if (body) {
     body.innerHTML = '';

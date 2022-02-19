@@ -3,7 +3,9 @@ import Component from '../abstract-component';
 import AudioCallOptionsHTML from './audio-call-options.html';
 import * as utils from '../../utils';
 import audioCall from '../../pages/audio-call/audio-call';
+import { deleteUserWord } from '../../services/user-words-services';
 import state from '../../state';
+import * as constants from '../../constants';
 
 export default class AudioCallOptions extends Component {
   constructor() {
@@ -53,17 +55,20 @@ export default class AudioCallOptions extends Component {
 
           if (guess === answer) {
             (<HTMLButtonElement>event.target).classList.add('btn-success');
-            state.gameRightAnswers.push(answerWordObject!);
+            state.gameRightAnswers.push(answerWordObject);
           } else {
             const rightAnswer = document.querySelector<HTMLButtonElement>(`[data-word="${answer}"]`)!;
             (<HTMLButtonElement>event.target).classList.add('btn-danger');
             rightAnswer.classList.remove('btn-outline-info');
             rightAnswer.classList.add('btn-success');
-            state.gameWrongAnswers.push(answerWordObject!);
+            state.gameWrongAnswers.push(answerWordObject);
+            const userId = localStorage.getItem(constants.userId);
+            if (userId && answerWordObject?._id && answerWordObject?.userWord?.difficulty === 'easy') {
+              deleteUserWord(userId, answerWordObject._id);
+            }
           }
           showAnswerElements();
         },
-        { once: true }
       );
     });
 
