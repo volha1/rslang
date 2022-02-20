@@ -4,6 +4,7 @@ import Footer from '../../components/footer/footer';
 import StatisticsHTML from './statistics.html';
 import Registration from '../../components/registration/registration';
 import Login from '../../components/login/login';
+import './statistics.scss';
 
 export default function bootstrap(): void {
   const body = document.querySelector<HTMLElement>('body');
