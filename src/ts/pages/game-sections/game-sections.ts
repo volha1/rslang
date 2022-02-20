@@ -18,6 +18,7 @@ function addListeners(): void {
       store.chapter = +(<HTMLElement>event.target).dataset.section!;
       store.page = utils.getRandomNumber(constants.appPagesAmount);
       state.repeatGameBtnLink = `/mini-games/${state.currentGame}`;
+      utils.cleanGameData();
     });
   });
 }
@@ -31,9 +32,6 @@ function changeElementsVisibility(): void {
 }
 
 export default async function bootstrap(): Promise<void> {
-  utils.cleanGameData();
-  await utils.getWordsForGame();
-
   const body = document.querySelector<HTMLElement>('body');
   if (body) {
     body.innerHTML = '';
