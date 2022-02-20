@@ -17,7 +17,7 @@ function addListeners(): void {
     item.addEventListener('click', async (event) => {
       store.chapter = +(<HTMLElement>event.target).dataset.section!;
       store.page = utils.getRandomNumber(constants.appPagesAmount);
-      state.repeatGameBtnLink = '/mini-games/audio-call';
+      state.repeatGameBtnLink = `/mini-games/${state.currentGame}`;
     });
   });
 }
@@ -42,7 +42,7 @@ export default async function bootstrap(): Promise<void> {
   body?.append(header.render());
   const main = document.createElement('main');
   main.classList.add('main');
-  main.innerHTML = template(GameSectionsHTML)();
+  main.innerHTML = template(GameSectionsHTML)({ currentGame: state.currentGame });
   body?.append(main);
   const footer = new Footer();
   body?.append(footer.render());

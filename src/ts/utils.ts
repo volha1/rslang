@@ -13,9 +13,9 @@ function getRandomNumber(max: number): number {
 async function getWordsPerPage(): Promise<void> {
   if (AuthService.isLogged()) {
     const userId = localStorage.getItem(constants.userId);
-    const fromTextbook = (state.repeatGameBtnLink).includes('start');
+    const fromTextbook = state.repeatGameBtnLink.includes('start');
     if (userId && store.chapter !== constants.difficultWordsChapter && fromTextbook) {
-      state.gameWordsForGuessing.push(...await getUserWords(userId, 'allExcludedEasy'));
+      state.gameWordsForGuessing.push(...(await getUserWords(userId, 'allExcludedEasy')));
     } else if (userId && store.chapter !== constants.difficultWordsChapter && !fromTextbook) {
       state.gameWordsForGuessing = await getUserWords(userId, 'all');
     } else if (userId) {
@@ -61,6 +61,18 @@ function getRandomAnswerOptions(): Array<JSONWord> {
   return shuffleArray(result);
 }
 
+function getRandomSprintAnswer(): JSONWord | undefined {
+  const answer = state.gameWordsForGuessing[state.wordsCounter];
+  const guessingWords = [...state.gameWordsForGuessing];
+  let possibleAnswer = shuffleArray(guessingWords).find((item) => item.word !== answer.word);
+  console.log(answer.word, possibleAnswer?.word);
+  if (Math.round(Math.random())) {
+    possibleAnswer = answer;
+  }
+  console.log(answer.word, possibleAnswer?.word);
+  return possibleAnswer;
+}
+
 function cleanGameData(): void {
   state.wordsCounter = 0;
   state.gameRightAnswers = [];
@@ -69,4 +81,12 @@ function cleanGameData(): void {
   state.preventAudioPlay = false;
 }
 
-export { getRandomNumber, shuffleArray, getWordsPerPage, getRandomAnswerOptions, cleanGameData, getWordsForGame };
+export {
+  getRandomNumber,
+  shuffleArray,
+  getWordsPerPage,
+  getRandomAnswerOptions,
+  cleanGameData,
+  getWordsForGame,
+  getRandomSprintAnswer,
+};

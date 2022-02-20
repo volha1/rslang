@@ -8,6 +8,7 @@ import store from '../../store';
 import * as utils from '../../utils';
 import { router } from '../../router';
 import './game-start.scss';
+import state from '../../state';
 
 export default async function bootstrap(): Promise<void> {
   utils.cleanGameData();
@@ -21,7 +22,7 @@ export default async function bootstrap(): Promise<void> {
   body?.append(header.render());
   const main = document.createElement('main');
   main.classList.add('main');
-  main.innerHTML = template(GameStartHTML)({ chapter: store.chapter });
+  main.innerHTML = template(GameStartHTML)({ chapter: store.chapter, currentGame: state.currentGame });
   body?.append(main);
   const footer = new Footer();
   body?.append(footer.render());

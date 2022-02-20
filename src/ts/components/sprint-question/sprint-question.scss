@@ -1,0 +1,36 @@
+@import '../../../variables.scss';
+
+.sprint-question {
+  max-width: 720px !important;
+}
+
+.audio-img {
+  width: 50px;
+  height: 50px;
+  stroke: #1ec7f1;
+  fill: #1ec7f1;
+  transition: all 0.2s ease-in;
+}
+
+.audio-img:hover {
+  stroke: #158eac;
+  fill: #158eac;
+}
+
+.progress-bar-wrapper {
+  padding: 0 !important;
+}
+
+.progress-bar-sprint {
+  width: 25%;
+}
+
+.right-answer {
+  color: $right-answer-color;
+}
+
+.wrong-answer {
+  color: $wrong-answer-color;
+}
+
+
