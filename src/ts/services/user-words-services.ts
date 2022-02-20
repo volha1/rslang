@@ -6,9 +6,8 @@ import { JSONWord, JSONWords } from '../types/word';
 import store from '../store';
 import LocalStorageService from './storage-service';
 
-const token = localStorage.getItem(constants.token);
-
 export async function createUserWord(userId: string, wordId: string, word: UserWordById): Promise<void> {
+  const token = localStorage.getItem(constants.token);
   await fetch(`${constants.usersUrl}/${userId}/words/${wordId}`, {
     method: 'POST',
     headers: {
@@ -21,6 +20,7 @@ export async function createUserWord(userId: string, wordId: string, word: UserW
 }
 
 export async function getUserWord(userId: string, wordId: string): Promise<{ content: UserWordById; status: number }> {
+  const token = localStorage.getItem(constants.token);
   const response = await fetch(`${constants.usersUrl}/${userId}/words/${wordId}`, {
     method: 'GET',
     headers: {
@@ -34,6 +34,7 @@ export async function getUserWord(userId: string, wordId: string): Promise<{ con
 }
 
 export async function updateUserWord(userId: string, wordId: string, word: UserWordById): Promise<void> {
+  const token = localStorage.getItem(constants.token);
   await fetch(`${constants.usersUrl}/${userId}/words/${wordId}`, {
     method: 'PUT',
     headers: {
@@ -46,6 +47,7 @@ export async function updateUserWord(userId: string, wordId: string, word: UserW
 }
 
 export async function deleteUserWord(userId: string, wordId: string): Promise<void> {
+  const token = localStorage.getItem(constants.token);
   await fetch(`${constants.usersUrl}/${userId}/words/${wordId}`, {
     method: 'DELETE',
     headers: {
@@ -84,6 +86,7 @@ export async function getUserWords(userId: string, filter: string): Promise<JSON
       obj = objAll;
   }
   async function sendRequest(): Promise<Response> {
+    const token = localStorage.getItem(constants.token);
     const response = await fetch(
       `${constants.usersUrl}/${userId}/aggregatedWords?wordsPerPage=${wordsPerPage}&filter=${JSON.stringify(obj)}`,
       {
@@ -96,14 +99,15 @@ export async function getUserWords(userId: string, filter: string): Promise<JSON
     );
     return response;
   }
-  if ((await sendRequest()).status === ResponseCodes.Unauthorized) {
-    UserService.refreshToken();
-    if ((await sendRequest()).status === ResponseCodes.Unauthorized) {
+  let response = await sendRequest();
+  if (response.status !== ResponseCodes.OK) {
+    await UserService.refreshToken();
+    response = await sendRequest();
+    if (response.status !== ResponseCodes.OK) {
       LocalStorageService.deleteUserData();
       window.location.reload();
     }
   }
-  const response = await sendRequest();
   const content = await response.json();
   const wordArray = content[0].paginatedResults;
   return wordArray;
@@ -111,6 +115,7 @@ export async function getUserWords(userId: string, filter: string): Promise<JSON
 
 export async function getAggregatedUserWord(userId: string, wordId: string): Promise<JSONWord> {
   async function sendRequest(): Promise<Response> {
+    const token = localStorage.getItem(constants.token);
     const response = await fetch(`${constants.usersUrl}/${userId}/aggregatedWords/${wordId}`, {
       method: 'GET',
       headers: {
@@ -120,13 +125,15 @@ export async function getAggregatedUserWord(userId: string, wordId: string): Pro
     });
     return response;
   }
-  if ((await sendRequest()).status === ResponseCodes.Unauthorized) {
-    UserService.refreshToken();
-    if ((await sendRequest()).status === ResponseCodes.Unauthorized) {
-      document.querySelector<HTMLButtonElement>('.btn-login')?.click();
+  let response = await sendRequest();
+  if (response.status !== ResponseCodes.OK) {
+    await UserService.refreshToken();
+    response = await sendRequest();
+    if (response.status !== ResponseCodes.OK) {
+      LocalStorageService.deleteUserData();
+      window.location.reload();
     }
   }
-  const response = await sendRequest();
   const content = await response.json();
   const word = content[0];
   return word;
