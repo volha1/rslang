@@ -1,7 +1,7 @@
 
 <div class="row">
-    <p class="col text-center fs-3 fw-bold right-answer">Верно!</p>
-    <p class="col text-center fs-5 fw-bold">Промежуточный результат:<br>170 баллов</p>
+    <p class="col text-center fs-3 fw-bold right-answer"><%-isCorrectAnswer%></p>
+    <p class="col text-center fs-5 fw-bold">Промежуточный результат:<br><%-score%> баллов</p>
 </div>
 <div class="container border border-3 border-info justify-content-center rounded-3">
     <div class="row mt-5">
@@ -10,7 +10,7 @@
                 <div class="progress-bar bg-info progress-bar-sprint" role="progressbar" aria-valuenow="50"
                     aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            <div class="col fs-5 text-center">+10 баллов</div>
+            <div class="col fs-5 text-center">+<%-pointsForRightAnswer%> баллов</div>
         </div>
         <div class="col-2">
             <button type="button" class="btn" aria-label="Аудио слова"> <svg class="audio-img"
@@ -25,10 +25,10 @@
         </div>
 
     </div>
-    <div class="fs-2 fw-bold text-center">Word</div>
-    <div class="fs-2 fw-bold mb-3 text-center">Перевод</div>
+    <div class="fs-2 fw-bold text-center"><%-word%></div>
+    <div class="fs-2 fw-bold mb-3 text-center"><%-translate%></div>
     <div class="mb-3 d-flex gap-5 justify-content-center">
-        <button class="btn btn-danger" type="button" aria-label="неверно">Неверно</button>
-        <button class="btn btn-success px-4" type="button" aria-label="верно">Верно</button>
+        <button class="btn btn-danger answer-button disagree-button" type="button" aria-label="неверно">Неверно</button>
+        <button class="btn btn-success px-4 answer-button agree-button" type="button" aria-label="верно">Верно</button>
     </div>
 </div>

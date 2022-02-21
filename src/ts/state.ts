@@ -7,5 +7,17 @@ const wordsCounter = 0;
 const repeatGameBtnLink = '';
 const preventAudioPlay = false;
 const currentGame = '';
+const sprintGameProposedAnswer = '';
+const isCorrestAnswer = '';
 
-export default { gameWordsForGuessing, wordsCounter, gameRightAnswers, gameWrongAnswers, repeatGameBtnLink, preventAudioPlay, currentGame };
+export default {
+  gameWordsForGuessing,
+  wordsCounter,
+  gameRightAnswers,
+  gameWrongAnswers,
+  repeatGameBtnLink,
+  preventAudioPlay,
+  currentGame,
+  sprintGameProposedAnswer,
+  isCorrestAnswer,
+};

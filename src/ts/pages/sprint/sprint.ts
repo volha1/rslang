@@ -7,8 +7,18 @@ import GameProgress from '../../components/game-progress/game-progress';
 import GameResult from '../../components/game-result/game-result';
 import { router } from '../../router';
 import SprintTimer from '../../components/sprint-timer/sprint-timer';
+import state from '../../state';
+import * as utils from '../../utils';
 
 export default async function bootstrap(): Promise<void> {
+  if (state.gameWordsForGuessing.length === 0) {
+    await utils.getWordsForGame();
+    const proposedAnswer = utils.getRandomSprintAnswer()?.wordTranslate;
+    if (proposedAnswer) {
+      state.sprintGameProposedAnswer = proposedAnswer;
+    }
+  }
+
   const body = document.querySelector<HTMLElement>('body');
   if (body) {
     body.innerHTML = '';

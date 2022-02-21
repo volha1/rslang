@@ -15,6 +15,7 @@ import './game-sections.scss';
 function addListeners(): void {
   document.querySelectorAll<HTMLElement>('.section-link').forEach((item) => {
     item.addEventListener('click', async (event) => {
+      item.innerHTML = 'Пару секунд и игра загрузится!';
       store.chapter = +(<HTMLElement>event.target).dataset.section!;
       store.page = utils.getRandomNumber(constants.appPagesAmount);
       state.repeatGameBtnLink = `/mini-games/${state.currentGame}`;

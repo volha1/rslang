@@ -53,6 +53,7 @@ export default function routing(): void {
     })
     .on('/mini-games/audio-call/chapter/:chapter', () => {
       localStorage.setItem(constants.currentRoute, Routes.miniGames);
+      state.currentGame = 'audio-call';
       audioCall();
     })
     .on('/mini-games/sprint', () => {
@@ -68,6 +69,7 @@ export default function routing(): void {
       })
       .on('/mini-games/sprint/chapter/:chapter', () => {
         localStorage.setItem(constants.currentRoute, Routes.miniGames);
+        state.currentGame = 'sprint';
         sprint();
       })
     .on('/statistics', () => {

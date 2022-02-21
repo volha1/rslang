@@ -60,6 +60,7 @@ export async function getUserWords(userId: string, filter: string): Promise<JSON
   const page = store.page - 1;
   const group = store.chapter - 1;
   const objAll = { $and: [{ page, group }] };
+  const objAllInGroup = { $and: [{ group }] };
   const objAllHard = { $and: [{ 'userWord.difficulty': 'hard' }] };
   const objHardOrEasy = {
     $and: [{ $or: [{ 'userWord.difficulty': 'hard' }, { 'userWord.difficulty': 'easy' }] }, { group }],
@@ -79,6 +80,10 @@ export async function getUserWords(userId: string, filter: string): Promise<JSON
       break;
     case 'hardOrEasy':
       obj = objHardOrEasy;
+      wordsPerPage = 600;
+      break;
+    case 'allInGroup':
+      obj = objAllInGroup;
       wordsPerPage = 600;
       break;
     case 'all':
