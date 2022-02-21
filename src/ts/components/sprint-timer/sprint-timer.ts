@@ -2,8 +2,6 @@ import template from 'lodash.template';
 import Component from '../abstract-component';
 import SprintTimerHTML from './sprint-timer.html';
 import './sprint-timer.scss';
-import store from '../../store';
-import * as constants from '../../constants';
 
 export default class SprintTimer extends Component {
   constructor() {
@@ -11,8 +9,21 @@ export default class SprintTimer extends Component {
   }
   render(): HTMLElement {
     this.container.innerHTML = template(SprintTimerHTML)();
-    this.addListeners();
+    let sec = 60;
+    const intervalId = setInterval(() => {
+      const timeInTImer = this.container.querySelector('.time-in-timer');
+      sec -= 1;
+      if (timeInTImer) {
+        if (sec > 9) {
+          timeInTImer.innerHTML = `${sec}`;
+        } else {
+          timeInTImer.innerHTML = `0${sec}`;
+        }
+      }
+      if (!sec) {
+        clearInterval(intervalId);
+      }
+    }, 1000);
     return this.container;
   }
-  addListeners(): void {}
 }
