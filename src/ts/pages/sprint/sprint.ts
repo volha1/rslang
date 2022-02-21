@@ -11,12 +11,10 @@ import state from '../../state';
 import * as utils from '../../utils';
 
 export default async function bootstrap(): Promise<void> {
+  utils.resetSprintScore();
   if (state.gameWordsForGuessing.length === 0) {
     await utils.getWordsForGame();
-    const proposedAnswer = utils.getRandomSprintAnswer()?.wordTranslate;
-    if (proposedAnswer) {
-      state.sprintGameProposedAnswer = proposedAnswer;
-    }
+    state.sprintGameProposedAnswer = utils.getRandomSprintAnswer();
   }
 
   const body = document.querySelector<HTMLElement>('body');

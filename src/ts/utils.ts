@@ -98,6 +98,12 @@ function cleanGameData(): void {
   state.preventAudioPlay = false;
 }
 
+function resetSprintScore(): void {
+  store.sprintScore = 0;
+  store.sprintPointsForRightAnswer = 10;
+  store.sprintProgressBar = 0;
+}
+
 export {
   getRandomNumber,
   shuffleArray,
@@ -106,4 +112,5 @@ export {
   cleanGameData,
   getWordsForGame,
   getRandomSprintAnswer,
+  resetSprintScore,
 };

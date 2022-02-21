@@ -1,13 +1,13 @@
 
 <div class="row">
-    <p class="col text-center fs-3 fw-bold right-answer"><%-isCorrectAnswer%></p>
+    <p class="col text-center fs-3 fw-bold is-right-answer"></p>
     <p class="col text-center fs-5 fw-bold">Промежуточный результат:<br><%-score%> баллов</p>
 </div>
-<div class="container border border-3 border-info justify-content-center rounded-3">
+<div class="container border border-3 border-info justify-content-center rounded-3 question-wrapper">
     <div class="row mt-5">
         <div class="col-12">
             <div class="col progress mx-5 progress-bar-wrapper">
-                <div class="progress-bar bg-info progress-bar-sprint" role="progressbar" aria-valuenow="50"
+                <div class="progress-bar bg-info progress-bar-sprint" style="width: <%-width%>%" role="progressbar" aria-valuenow="50"
                     aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div class="col fs-5 text-center">+<%-pointsForRightAnswer%> баллов</div>

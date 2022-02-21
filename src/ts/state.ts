@@ -7,7 +7,7 @@ const wordsCounter = 0;
 const repeatGameBtnLink = '';
 const preventAudioPlay = false;
 const currentGame = '';
-const sprintGameProposedAnswer = '';
+let sprintGameProposedAnswer: JSONWord | undefined;
 const isCorrestAnswer = '';
 
 export default {
