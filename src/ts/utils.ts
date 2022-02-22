@@ -70,7 +70,7 @@ function cleanGameData(): void {
   state.preventAudioPlay = false;
 }
 
-async function saveStatistics(): Promise<void> {
+async function saveAudiocallStatistics(): Promise<void> {
   let audiocallRightAnswers;
   const statistics = await getStatistics();
   const sprintRightAnswers = statistics.optional?.sprintRightAnswers;
@@ -94,4 +94,28 @@ async function saveStatistics(): Promise<void> {
   updateStatistics(statObj);
 }
 
-export { getRandomNumber, shuffleArray, getWordsPerPage, getRandomAnswerOptions, cleanGameData, getWordsForGame, saveStatistics };
+async function saveSprintStatistics(): Promise<void> {
+  let sprintRightAnswers;
+  const statistics = await getStatistics();
+  const audiocallRightAnswers = statistics.optional?.audiocallRightAnswers;
+
+  if (statistics.optional?.sprintRightAnswers) {
+    sprintRightAnswers = Math.round(
+      ((state.gameRightAnswers.length / state.gameWordsForGuessing.length) * 100 +
+        statistics.optional.sprintRightAnswers) /
+        2
+    );
+  } else {
+    sprintRightAnswers = Math.round((state.gameRightAnswers.length / state.gameWordsForGuessing.length) * 100);
+  }
+
+  const statObj = {
+    optional: {
+      audiocallRightAnswers,
+      sprintRightAnswers
+    },
+  };
+  updateStatistics(statObj);
+}
+
+export { getRandomNumber, shuffleArray, getWordsPerPage, getRandomAnswerOptions, cleanGameData, getWordsForGame, saveAudiocallStatistics, saveSprintStatistics };

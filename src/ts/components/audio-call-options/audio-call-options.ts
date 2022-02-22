@@ -74,7 +74,7 @@ export default class AudioCallOptions extends Component {
         state.preventAudioPlay = true;
         await audioCall();
         if (localStorage.getItem(constants.userId)) {
-          await utils.saveStatistics();
+          await utils.saveAudiocallStatistics();
         }
 
         document.querySelector<HTMLButtonElement>('.btn-game-results')?.click();
