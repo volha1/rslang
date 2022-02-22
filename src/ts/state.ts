@@ -8,7 +8,6 @@ const repeatGameBtnLink = '';
 const preventAudioPlay = false;
 const currentGame = '';
 let sprintGameProposedAnswer: JSONWord | undefined;
-const isCorrestAnswer = '';
 
 export default {
   gameWordsForGuessing,
@@ -19,5 +18,4 @@ export default {
   preventAudioPlay,
   currentGame,
   sprintGameProposedAnswer,
-  isCorrestAnswer,
 };

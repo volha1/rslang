@@ -5,6 +5,7 @@ import './sprint-question.scss';
 import state from '../../state';
 import store from '../../store';
 import * as utils from '../../utils';
+import * as constants from '../../constants';
 
 export default class SprintQuestion extends Component {
   constructor() {
@@ -28,6 +29,15 @@ export default class SprintQuestion extends Component {
     const isRightAnswer = this.container.querySelector<HTMLElement>('.is-right-answer');
     const questionWrapper = this.container.querySelector<HTMLElement>('.question-wrapper');
     const progressBarSprint = this.container.querySelector<HTMLElement>('.progress-bar-sprint');
+
+    function playWithKeyboard(e: KeyboardEvent): void {
+      if (e.key === 'ArrowLeft') {
+        disagreeButton?.click();
+      }
+      if (e.key === 'ArrowRight') {
+        agreeButton?.click();
+      }
+    }
 
     function itIsRightAnswer(): void {
       if (isRightAnswer && progressBarSprint) {
@@ -70,12 +80,25 @@ export default class SprintQuestion extends Component {
         itIsWrongAnswer();
       }
     });
+
+    document.addEventListener('keyup', playWithKeyboard);
+
     answerButtons.forEach((item) =>
       item.addEventListener('click', async () => {
+        console.log(state.wordsCounter);
         state.wordsCounter += 1;
         state.sprintGameProposedAnswer = utils.getRandomSprintAnswer();
+        document.removeEventListener('keyup', playWithKeyboard);
         setTimeout(() => this.render(), 1000);
       })
     );
+
+    const wordAudio = new Audio(`${constants.url}${state.gameWordsForGuessing[state.wordsCounter].audio}`);
+
+    async function playAudio(): Promise<void> {
+      await wordAudio.play();
+    }
+
+    this.container.querySelector<HTMLButtonElement>('.sprint-sound-button')?.addEventListener('click', playAudio);
   }
 }
