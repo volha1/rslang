@@ -6,6 +6,7 @@ import state from '../../state';
 import store from '../../store';
 import * as utils from '../../utils';
 import * as constants from '../../constants';
+import { deleteUserWord } from '../../services/user-words-services';
 
 export default class SprintQuestion extends Component {
   constructor() {
@@ -29,6 +30,7 @@ export default class SprintQuestion extends Component {
     const isRightAnswer = this.container.querySelector<HTMLElement>('.is-right-answer');
     const questionWrapper = this.container.querySelector<HTMLElement>('.question-wrapper');
     const progressBarSprint = this.container.querySelector<HTMLElement>('.progress-bar-sprint');
+    const answerWordObject = state.gameWordsForGuessing[state.wordsCounter];
 
     function playWithKeyboard(e: KeyboardEvent): void {
       if (e.key === 'ArrowLeft') {
@@ -41,6 +43,7 @@ export default class SprintQuestion extends Component {
 
     function itIsRightAnswer(): void {
       if (isRightAnswer && progressBarSprint) {
+        state.gameRightAnswers.push(answerWordObject);
         isRightAnswer.innerHTML = 'Верно!';
         isRightAnswer.classList.add('right-answer');
         questionWrapper?.classList.remove('border-info');
@@ -56,6 +59,11 @@ export default class SprintQuestion extends Component {
     }
     function itIsWrongAnswer(): void {
       if (isRightAnswer && progressBarSprint) {
+        state.gameWrongAnswers.push(answerWordObject);
+        const userId = localStorage.getItem(constants.userId);
+        if (userId && answerWordObject?._id && answerWordObject?.userWord?.difficulty === 'easy') {
+          deleteUserWord(userId, answerWordObject._id);
+        }
         isRightAnswer.innerHTML = 'Неверно.';
         isRightAnswer.classList.add('wrong-answer');
         questionWrapper?.classList.remove('border-info');
@@ -85,11 +93,10 @@ export default class SprintQuestion extends Component {
 
     answerButtons.forEach((item) =>
       item.addEventListener('click', async () => {
-        console.log(state.wordsCounter);
         state.wordsCounter += 1;
         state.sprintGameProposedAnswer = utils.getRandomSprintAnswer();
         document.removeEventListener('keyup', playWithKeyboard);
-        setTimeout(() => this.render(), 1000);
+        setTimeout(() => this.render(), 500);
       })
     );
 
