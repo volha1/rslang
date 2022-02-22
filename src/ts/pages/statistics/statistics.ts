@@ -13,6 +13,9 @@ export default async function bootstrap(): Promise<void> {
   const audiocallAnswers = statistics?.optional?.audiocallRightAnswers ?? 0;
   const sprintAnswers = statistics?.optional?.sprintRightAnswers ?? 0;
   const averageAnswers = Math.round((audiocallAnswers + sprintAnswers) / 2);
+  const audiocallNewWords = statistics?.optional?.newWords?.audiocall?.length ?? 0;
+  const sprintNewWords = statistics?.optional?.newWords?.sprint?.length ?? 0;
+  const allNewWords = audiocallNewWords + sprintNewWords;
   const body = document.querySelector<HTMLElement>('body');
   if (body) {
     body.innerHTML = '';
@@ -20,7 +23,7 @@ export default async function bootstrap(): Promise<void> {
   const header = new Header();
   body?.append(header.render());
   const main = document.createElement('main');
-  main.innerHTML = template(StatisticsHTML)({ audiocallAnswers, sprintAnswers, averageAnswers });
+  main.innerHTML = template(StatisticsHTML)({ audiocallAnswers, sprintAnswers, averageAnswers, audiocallNewWords, sprintNewWords, allNewWords });
   body?.append(main);
   const footer = new Footer();
   body?.append(footer.render());

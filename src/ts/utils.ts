@@ -103,6 +103,8 @@ async function saveAudiocallStatistics(): Promise<void> {
   let audiocallRightAnswers;
   const statistics = await getStatistics();
   const sprintRightAnswers = statistics.optional?.sprintRightAnswers;
+  let audiocallNewWords = statistics.optional?.newWords?.audiocall || [];
+  const sprintNewWords = statistics.optional?.newWords?.sprint || [];
 
   if (statistics.optional?.audiocallRightAnswers) {
     audiocallRightAnswers = Math.round(
@@ -114,10 +116,17 @@ async function saveAudiocallStatistics(): Promise<void> {
     audiocallRightAnswers = Math.round((state.gameRightAnswers.length / state.gameWordsForGuessing.length) * 100);
   }
 
+  state.gameWordsForGuessing.forEach((item) => audiocallNewWords.push(item._id!));
+  audiocallNewWords = [...new Set(audiocallNewWords)];
+
   const statObj = {
     optional: {
       audiocallRightAnswers,
-      sprintRightAnswers
+      sprintRightAnswers,
+      newWords: {
+        audiocall: audiocallNewWords,
+        sprint: sprintNewWords
+      }
     },
   };
   updateStatistics(statObj);
@@ -127,6 +136,8 @@ async function saveSprintStatistics(): Promise<void> {
   let sprintRightAnswers;
   const statistics = await getStatistics();
   const audiocallRightAnswers = statistics.optional?.audiocallRightAnswers;
+  let sprintNewWords = statistics.optional?.newWords?.sprint || [];
+  const audiocallNewWords = statistics.optional?.newWords?.audiocall || [];
 
   if (statistics.optional?.sprintRightAnswers) {
     sprintRightAnswers = Math.round(
@@ -138,10 +149,17 @@ async function saveSprintStatistics(): Promise<void> {
     sprintRightAnswers = Math.round((state.gameRightAnswers.length / state.gameWordsForGuessing.length) * 100);
   }
 
+  [...state.gameWrongAnswers, ...state.gameRightAnswers].forEach((item) => sprintNewWords.push(item._id!));
+  sprintNewWords = [...new Set(sprintNewWords)];
+
   const statObj = {
     optional: {
       audiocallRightAnswers,
-      sprintRightAnswers
+      sprintRightAnswers,
+      newWords: {
+        audiocall: audiocallNewWords,
+        sprint: sprintNewWords
+      }
     },
   };
   updateStatistics(statObj);
