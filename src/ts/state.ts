@@ -6,5 +6,16 @@ const gameWrongAnswers: Array<JSONWord> = [];
 const wordsCounter = 0;
 const repeatGameBtnLink = '';
 const preventAudioPlay = false;
+const currentGame = '';
+let sprintGameProposedAnswer: JSONWord | undefined;
 
-export default { gameWordsForGuessing, wordsCounter, gameRightAnswers, gameWrongAnswers, repeatGameBtnLink, preventAudioPlay };
+export default {
+  gameWordsForGuessing,
+  wordsCounter,
+  gameRightAnswers,
+  gameWrongAnswers,
+  repeatGameBtnLink,
+  preventAudioPlay,
+  currentGame,
+  sprintGameProposedAnswer,
+};

@@ -1,5 +1,6 @@
 import * as constants from '../constants';
 import LocalStorageService from './storage-service';
+import ResponseCodes from '../enums/responseCodes';
 
 const createUser = async (user: { name: string, email: string, password: string }): Promise<void> => {
   (await fetch(`${constants.usersUrl}`, {
@@ -19,6 +20,10 @@ const refreshToken = async (): Promise<void> => {
     method: 'GET',
     headers: { Authorization: `Bearer ${refreshToken}` },
   });
+  if (response.status !== ResponseCodes.OK) {
+    LocalStorageService.deleteUserData();
+    window.location.reload();
+  }
   const data = await response.json();
   LocalStorageService.saveTokens(data.token, data.refreshToken);
 };

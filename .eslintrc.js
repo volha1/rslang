@@ -1,5 +1,3 @@
-const { offset } = require("@popperjs/core");
-
 module.exports = {
     root: true,
     env: {
@@ -33,8 +31,8 @@ module.exports = {
         'no-shadow': 'off',
         'no-restricted-syntax': 'off',
         'no-param-reassign': 'off',
-        'quote-props':'off',
-        'no-underscore-dangle':'off',
+        'quote-props': 'off',
+        'no-underscore-dangle': 'off',
         'no-unused-vars': 'off', /*instead of this rule was added '@typescript-eslint/no-unused-vars'*/
         // formatting is forced by prettier
         'linebreak-style': 'off',

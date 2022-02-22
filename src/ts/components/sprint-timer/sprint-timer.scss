@@ -1,0 +1,29 @@
+.time-in-timer {
+  transform: rotate(90deg);
+}
+
+.timer-wrapper {
+  align-self: center;
+  height: 100px;
+  width: 100px;
+  transform: rotate(-90deg);
+  stroke: #1ec7f1;
+  fill: #1ec7f1;
+}
+.timer-wrapper:hover {
+  stroke: #158eac;
+  fill: #158eac;
+}
+
+.circle {
+  animation: spin 60s linear forwards;
+}
+
+@keyframes spin {
+  0% {
+    stroke-dashoffset: 126;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}

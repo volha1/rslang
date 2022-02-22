@@ -42,21 +42,36 @@ export default function routing(): void {
     })
     .on('/mini-games/audio-call', () => {
       localStorage.setItem(constants.currentRoute, Routes.miniGames);
+      state.currentGame = 'audio-call';
       gameSections();
     })
     .on('/mini-games/audio-call/start', () => {
       state.repeatGameBtnLink = '/mini-games/audio-call/start';
       localStorage.setItem(constants.currentRoute, Routes.miniGames);
+      state.currentGame = 'audio-call';
       gameStart();
     })
     .on('/mini-games/audio-call/chapter/:chapter', () => {
       localStorage.setItem(constants.currentRoute, Routes.miniGames);
+      state.currentGame = 'audio-call';
       audioCall();
     })
     .on('/mini-games/sprint', () => {
       localStorage.setItem(constants.currentRoute, Routes.miniGames);
-      sprint();
+      state.currentGame = 'sprint';
+      gameSections();
     })
+    .on('/mini-games/sprint/start', () => {
+        state.repeatGameBtnLink = '/mini-games/sprint/start';
+        localStorage.setItem(constants.currentRoute, Routes.miniGames);
+        state.currentGame = 'sprint';
+        gameStart();
+      })
+      .on('/mini-games/sprint/chapter/:chapter', () => {
+        localStorage.setItem(constants.currentRoute, Routes.miniGames);
+        state.currentGame = 'sprint';
+        sprint();
+      })
     .on('/statistics', () => {
       localStorage.setItem(constants.currentRoute, Routes.statistics);
       statistics();

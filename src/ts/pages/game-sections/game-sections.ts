@@ -15,9 +15,10 @@ import './game-sections.scss';
 function addListeners(): void {
   document.querySelectorAll<HTMLElement>('.section-link').forEach((item) => {
     item.addEventListener('click', async (event) => {
+      item.innerHTML = 'Пару секунд и игра загрузится!';
       store.chapter = +(<HTMLElement>event.target).dataset.section!;
       store.page = utils.getRandomNumber(constants.appPagesAmount);
-      state.repeatGameBtnLink = '/mini-games/audio-call';
+      state.repeatGameBtnLink = `/mini-games/${state.currentGame}`;
       utils.cleanGameData();
     });
   });
@@ -40,7 +41,7 @@ export default async function bootstrap(): Promise<void> {
   body?.append(header.render());
   const main = document.createElement('main');
   main.classList.add('main');
-  main.innerHTML = template(GameSectionsHTML)();
+  main.innerHTML = template(GameSectionsHTML)({ currentGame: state.currentGame });
   body?.append(main);
   const footer = new Footer();
   body?.append(footer.render());
