@@ -7,12 +7,15 @@ import store from '../../store';
 import * as utils from '../../utils';
 import * as constants from '../../constants';
 import { deleteUserWord } from '../../services/user-words-services';
+import GameProgress from '../game-progress/game-progress';
+import GameResult from '../game-result/game-result';
 
 export default class SprintQuestion extends Component {
   constructor() {
     super('div', 'container justify-content-center sprint-question');
   }
   render(): HTMLElement {
+    state.sprintGameProposedAnswer = utils.getRandomSprintAnswer();
     this.container.innerHTML = template(SprintQuestionHTML)({
       width: store.sprintProgressBar,
       score: store.sprintScore,
@@ -93,6 +96,22 @@ export default class SprintQuestion extends Component {
 
     answerButtons.forEach((item) =>
       item.addEventListener('click', async () => {
+        if (state.gameWordsForGuessing.length === state.wordsCounter + 1) {
+          const main = document.querySelector('main');
+          if (main) {
+            const gameProgress = new GameProgress();
+            main.append(gameProgress.render());
+            const gameResult = new GameResult();
+            main.append(gameResult.render());
+          }
+          const scoreInResult = document.querySelectorAll<HTMLElement>('.score-in-result');
+          if (scoreInResult) {
+            scoreInResult.forEach((item) => {
+              item.innerHTML = `Результат: ${store.sprintScore} баллов`;
+            });
+          }
+          document.querySelector<HTMLButtonElement>('.btn-game-results')?.click();
+        }
         state.wordsCounter += 1;
         state.sprintGameProposedAnswer = utils.getRandomSprintAnswer();
         document.removeEventListener('keyup', playWithKeyboard);

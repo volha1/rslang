@@ -1,14 +1,15 @@
-
 <div class="row">
     <p class="col text-center fs-3 fw-bold is-right-answer"></p>
-    <p class="col text-center fs-5 fw-bold">Промежуточный результат:<br><%-score%> баллов</p>
+    <p class="col text-center fs-5 fw-bold">Промежуточный результат:<br>
+        <%-score%> баллов
+    </p>
 </div>
 <div class="container border border-3 border-info justify-content-center rounded-3 question-wrapper">
     <div class="row mt-5">
         <div class="col-12">
             <div class="col progress mx-5 progress-bar-wrapper">
-                <div class="progress-bar bg-info progress-bar-sprint" style="width: <%-width%>%" role="progressbar" aria-valuenow="50"
-                    aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar bg-info progress-bar-sprint" style="width: <%-width%>%" role="progressbar"
+                    aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             <div class="col fs-5 text-center">+<%-pointsForRightAnswer%> баллов</div>
         </div>
@@ -25,8 +26,12 @@
         </div>
 
     </div>
-    <div class="fs-2 fw-bold text-center"><%-word%></div>
-    <div class="fs-2 fw-bold mb-3 text-center"><%-translate%></div>
+    <div class="fs-2 fw-bold text-center">
+        <%-word%>
+    </div>
+    <div class="fs-2 fw-bold mb-3 text-center">
+        <%-translate%>
+    </div>
     <div class="mb-3 d-flex gap-5 justify-content-center">
         <button class="btn btn-danger answer-button disagree-button" type="button" aria-label="неверно">Неверно</button>
         <button class="btn btn-success px-4 answer-button agree-button" type="button" aria-label="верно">Верно</button>
