@@ -5,6 +5,7 @@ import state from './state';
 import store from './store';
 import * as constants from './constants';
 import AuthService from './services/auth-service';
+import { updateStatistics, getStatistics } from './services/statistics-service';
 
 function getRandomNumber(max: number): number {
   return Math.floor(1 + Math.random() * max);
@@ -69,4 +70,28 @@ function cleanGameData(): void {
   state.preventAudioPlay = false;
 }
 
-export { getRandomNumber, shuffleArray, getWordsPerPage, getRandomAnswerOptions, cleanGameData, getWordsForGame };
+async function saveStatistics(): Promise<void> {
+  let audiocallRightAnswers;
+  const statistics = await getStatistics();
+  const sprintRightAnswers = statistics.optional?.sprintRightAnswers;
+
+  if (statistics.optional?.audiocallRightAnswers) {
+    audiocallRightAnswers = Math.round(
+      ((state.gameRightAnswers.length / state.gameWordsForGuessing.length) * 100 +
+        statistics.optional.audiocallRightAnswers) /
+        2
+    );
+  } else {
+    audiocallRightAnswers = Math.round((state.gameRightAnswers.length / state.gameWordsForGuessing.length) * 100);
+  }
+
+  const statObj = {
+    optional: {
+      audiocallRightAnswers,
+      sprintRightAnswers
+    },
+  };
+  updateStatistics(statObj);
+}
+
+export { getRandomNumber, shuffleArray, getWordsPerPage, getRandomAnswerOptions, cleanGameData, getWordsForGame, saveStatistics };

@@ -6,6 +6,7 @@ import Registration from '../../components/registration/registration';
 import Login from '../../components/login/login';
 import AuthService from '../../services/auth-service';
 import './textbook.scss';
+import { router } from '../../router';
 
 function changeElementsVisibility(): void {
   if (AuthService.isLogged()) {
@@ -32,4 +33,5 @@ export default function bootstrap(): void {
   const login = new Login();
   main.append(login.render());
   changeElementsVisibility();
+  router?.updatePageLinks();
 }

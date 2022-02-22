@@ -30,11 +30,9 @@ export default class AudioCallOptions extends Component {
       document.querySelector('.btn-next')?.classList.remove('invisible');
       document.querySelector('.speaker-button')?.classList.add('invisible');
       document.querySelector('.btn-unknown')?.classList.add('invisible');
-      document
-        .querySelectorAll<HTMLButtonElement>('.btn-option')
-        .forEach((item) => {
-          item.style.pointerEvents = 'none';
-        });
+      document.querySelectorAll<HTMLButtonElement>('.btn-option').forEach((item) => {
+        item.style.pointerEvents = 'none';
+      });
     }
 
     function showGuessElements(): void {
@@ -44,38 +42,41 @@ export default class AudioCallOptions extends Component {
       document.querySelector('.btn-unknown')?.classList.remove('invisible');
     }
 
-    this.container.querySelectorAll<HTMLElement>('.btn-option').forEach((item) => {
-      item.addEventListener(
-        'click',
-        (event) => {
-          const guess = (<HTMLButtonElement>event.target).dataset.word;
-          const answerWordObject = state.gameWordsForGuessing[state.wordsCounter];
-          const answer = answerWordObject.wordTranslate;
-          (<HTMLButtonElement>event.target).classList.remove('btn-outline-info');
+    function processGuess(event: Event): void {
+      const guess = (<HTMLButtonElement>event.target).dataset.word;
+      const answerWordObject = state.gameWordsForGuessing[state.wordsCounter];
+      const answer = answerWordObject.wordTranslate;
+      (<HTMLButtonElement>event.target).classList.remove('btn-outline-info');
 
-          if (guess === answer) {
-            (<HTMLButtonElement>event.target).classList.add('btn-success');
-            state.gameRightAnswers.push(answerWordObject);
-          } else {
-            const rightAnswer = document.querySelector<HTMLButtonElement>(`[data-word="${answer}"]`)!;
-            (<HTMLButtonElement>event.target).classList.add('btn-danger');
-            rightAnswer.classList.remove('btn-outline-info');
-            rightAnswer.classList.add('btn-success');
-            state.gameWrongAnswers.push(answerWordObject);
-            const userId = localStorage.getItem(constants.userId);
-            if (userId && answerWordObject?._id && answerWordObject?.userWord?.difficulty === 'easy') {
-              deleteUserWord(userId, answerWordObject._id);
-            }
-          }
-          showAnswerElements();
-        },
-      );
+      if (guess === answer) {
+        (<HTMLButtonElement>event.target).classList.add('btn-success');
+        state.gameRightAnswers.push(answerWordObject);
+      } else {
+        const rightAnswer = document.querySelector<HTMLButtonElement>(`[data-word="${answer}"]`)!;
+        (<HTMLButtonElement>event.target).classList.add('btn-danger');
+        rightAnswer.classList.remove('btn-outline-info');
+        rightAnswer.classList.add('btn-success');
+        state.gameWrongAnswers.push(answerWordObject);
+        const userId = localStorage.getItem(constants.userId);
+        if (userId && answerWordObject?._id && answerWordObject?.userWord?.difficulty === 'easy') {
+          deleteUserWord(userId, answerWordObject._id);
+        }
+      }
+      showAnswerElements();
+    }
+
+    this.container.querySelectorAll<HTMLElement>('.btn-option').forEach((item) => {
+      item.addEventListener('click', processGuess);
     });
 
     this.container.querySelector<HTMLButtonElement>('.btn-next')?.addEventListener('click', async () => {
       if (state.wordsCounter === state.gameWordsForGuessing.length - 1) {
         state.preventAudioPlay = true;
         await audioCall();
+        if (localStorage.getItem(constants.userId)) {
+          await utils.saveStatistics();
+        }
+
         document.querySelector<HTMLButtonElement>('.btn-game-results')?.click();
       } else {
         state.wordsCounter += 1;
