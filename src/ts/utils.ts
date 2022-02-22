@@ -5,6 +5,7 @@ import state from './state';
 import store from './store';
 import * as constants from './constants';
 import AuthService from './services/auth-service';
+import { updateStatistics, getStatistics } from './services/statistics-service';
 
 function getRandomNumber(max: number): number {
   return Math.floor(1 + Math.random() * max);
@@ -98,6 +99,54 @@ function cleanGameData(): void {
   state.preventAudioPlay = false;
 }
 
+async function saveAudiocallStatistics(): Promise<void> {
+  let audiocallRightAnswers;
+  const statistics = await getStatistics();
+  const sprintRightAnswers = statistics.optional?.sprintRightAnswers;
+
+  if (statistics.optional?.audiocallRightAnswers) {
+    audiocallRightAnswers = Math.round(
+      ((state.gameRightAnswers.length / state.gameWordsForGuessing.length) * 100 +
+        statistics.optional.audiocallRightAnswers) /
+        2
+    );
+  } else {
+    audiocallRightAnswers = Math.round((state.gameRightAnswers.length / state.gameWordsForGuessing.length) * 100);
+  }
+
+  const statObj = {
+    optional: {
+      audiocallRightAnswers,
+      sprintRightAnswers
+    },
+  };
+  updateStatistics(statObj);
+}
+
+async function saveSprintStatistics(): Promise<void> {
+  let sprintRightAnswers;
+  const statistics = await getStatistics();
+  const audiocallRightAnswers = statistics.optional?.audiocallRightAnswers;
+
+  if (statistics.optional?.sprintRightAnswers) {
+    sprintRightAnswers = Math.round(
+      ((state.gameRightAnswers.length / state.gameWordsForGuessing.length) * 100 +
+        statistics.optional.sprintRightAnswers) /
+        2
+    );
+  } else {
+    sprintRightAnswers = Math.round((state.gameRightAnswers.length / state.gameWordsForGuessing.length) * 100);
+  }
+
+  const statObj = {
+    optional: {
+      audiocallRightAnswers,
+      sprintRightAnswers
+    },
+  };
+  updateStatistics(statObj);
+}
+
 function resetSprintScore(): void {
   store.sprintScore = 0;
   store.sprintPointsForRightAnswer = 10;
@@ -113,4 +162,6 @@ export {
   getWordsForGame,
   getRandomSprintAnswer,
   resetSprintScore,
+  saveAudiocallStatistics,
+  saveSprintStatistics
 };
