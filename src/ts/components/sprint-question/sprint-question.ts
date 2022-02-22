@@ -110,6 +110,10 @@ export default class SprintQuestion extends Component {
               item.innerHTML = `Результат: ${store.sprintScore} баллов`;
             });
           }
+
+          if (localStorage.getItem(constants.userId)) {
+            await utils.saveSprintStatistics();
+          }
           document.querySelector<HTMLButtonElement>('.btn-game-results')?.click();
         }
         state.wordsCounter += 1;

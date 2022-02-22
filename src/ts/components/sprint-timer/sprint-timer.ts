@@ -6,6 +6,8 @@ import SprintTimerHTML from './sprint-timer.html';
 import './sprint-timer.scss';
 import GameProgress from '../game-progress/game-progress';
 import GameResult from '../game-result/game-result';
+import * as utils from '../../utils';
+import * as constants from '../../constants';
 
 export default class SprintTimer extends Component {
   constructor() {
@@ -32,6 +34,9 @@ export default class SprintTimer extends Component {
           main.append(gameProgress.render());
           const gameResult = new GameResult();
           main.append(gameResult.render());
+        }
+        if (localStorage.getItem(constants.userId)) {
+          await utils.saveSprintStatistics();
         }
         document.querySelector<HTMLButtonElement>('.btn-game-results')?.click();
         const scoreInResult = document.querySelectorAll<HTMLElement>('.score-in-result');

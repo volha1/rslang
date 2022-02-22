@@ -1,5 +1,6 @@
 import * as constants from '../constants';
 import { Statistics } from '../types/statistics';
+import ResponseCodes from '../enums/responseCodes';
 
 export async function updateStatistics(statistics: Statistics): Promise<void> {
   const token = localStorage.getItem(constants.token);
@@ -27,6 +28,9 @@ export async function getStatistics(): Promise<Statistics> {
       Accept: 'application/json',
     },
   });
+  if (response.status !== ResponseCodes.OK) {
+    return {};
+  }
   const statistics = await response.json();
   return statistics;
 }
