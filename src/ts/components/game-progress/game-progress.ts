@@ -19,7 +19,7 @@ export default class GameProgress extends Component {
     }
     this.container.innerHTML = template(GameProgressHTML)({ percentage: rightAnswersPercentage });
     this.addListeners();
-    (async () => {
+    (async (): Promise<void> => {
       await utils.addWordToLearnedIfGuessed();
     })();
     return this.container;
