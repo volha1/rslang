@@ -11,7 +11,7 @@ export default class GameProgress extends Component {
 
   render(): HTMLElement {
     const rightAnswersPercentage = Math.round(
-      (state.gameRightAnswers.length / state.gameWordsForGuessing.length) * 100
+      (state.gameRightAnswers.length / (state.gameRightAnswers.length + state.gameWrongAnswers.length)) * 100
     );
     this.container.innerHTML = template(GameProgressHTML)({ percentage: rightAnswersPercentage });
     this.addListeners();

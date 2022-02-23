@@ -34,6 +34,7 @@ export default async function bootstrap(): Promise<void> {
   const header = new Header();
   body?.append(header.render());
   const main = document.createElement('main');
+  main.classList.add('main-word-list');
   const wordsContainer = document.createElement('div');
 
   const userId = localStorage.getItem(constants.userId);

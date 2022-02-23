@@ -90,8 +90,11 @@ export default class WordCard extends Component {
     wordAudio.addEventListener('ended', playMeaningAudio);
     wordMeaningAudio.addEventListener('ended', playExampleAudio);
 
-    this.container.querySelector<HTMLButtonElement>('.button-sound')?.addEventListener('click', playAudio);
-
+    this.container.querySelector<HTMLButtonElement>('.button-sound')?.addEventListener('click', async () => {
+      if (wordAudio.paused && wordMeaningAudio.paused && wordExampleAudio.paused) {
+        await playAudio();
+      }
+    });
     const buttonDifficult = this.container.querySelector<HTMLButtonElement>('.button-difficult');
     const buttonLearned = this.container.querySelector<HTMLButtonElement>('.button-learned');
 
