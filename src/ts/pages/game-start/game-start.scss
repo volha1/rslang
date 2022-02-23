@@ -1,6 +1,6 @@
 .game-start-container {
   height: 88vh;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 .game-start-container a {
@@ -13,4 +13,8 @@
 
 .game-start-container a:hover {
   transform: scale(1.1);
+}
+
+.start-link {
+  background-color: aliceblue;
 }

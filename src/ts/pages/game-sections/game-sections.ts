@@ -25,11 +25,7 @@ function addListeners(): void {
 }
 
 function changeElementsVisibility(): void {
-  if (AuthService.isLogged()) {
-    document.querySelector("[data-section='7']")?.classList.add('visible');
-  } else {
-    document.querySelector("[data-section='7']")?.classList.add('invisible');
-  }
+  document.querySelector("[data-section='7']")?.classList.toggle('invisible', !AuthService.isLogged());
 }
 
 export default async function bootstrap(): Promise<void> {

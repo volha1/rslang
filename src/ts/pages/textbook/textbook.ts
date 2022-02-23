@@ -9,11 +9,7 @@ import './textbook.scss';
 import { router } from '../../router';
 
 function changeElementsVisibility(): void {
-  if (AuthService.isLogged()) {
-    document.querySelector<HTMLElement>('.complicated-words')?.classList.add('visible');
-  } else {
-    document.querySelector<HTMLElement>('.complicated-words')?.classList.add('invisible');
-  }
+  document.querySelector<HTMLElement>('.complicated-words')?.classList.toggle('invisible', !AuthService.isLogged());
 }
 
 export default function bootstrap(): void {

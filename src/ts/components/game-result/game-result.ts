@@ -4,6 +4,7 @@ import GameResultHTML from './game-result.html';
 import state from '../../state';
 import * as constants from '../../constants';
 import { router } from '../../router';
+import './game-result.scss';
 
 export default class GameResult extends Component {
   constructor() {

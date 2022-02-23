@@ -8,15 +8,15 @@
       <div class="modal-body">
         <form class="registration-form">
           <div class="form-group mb-3">
-            <label for="register-name">Имя</label>
+            <label for="register-name">Имя<sup>*</sup></label>
             <input type="name" class="form-control name" id="register-name" required placeholder="Введите имя" />
           </div>
           <div class="form-group mb-3">
-            <label for="register-email">Email</label>
+            <label for="register-email">Email<sup>*</sup></label>
             <input type="email" class="form-control email" id="register-email" required placeholder="Введите email" />
           </div>
           <div class="form-group mb-3">
-            <label for="register-password">Пароль</label>
+            <label for="register-password">Пароль<sup>*</sup></label>
             <input
               type="password"
               class="form-control password"
@@ -28,17 +28,12 @@
             <div id="passwordHelpBlock" class="form-text">Ваш пароль должен быть не менее 8 символов.</div>
           </div>
           <button class="btn btn-success mb-3" type="submit">Зарегистрироваться</button>
-          <p class="message mb-3">Уже зарегистрированы? <a href="" data-bs-target="#loginModal" data-bs-toggle="modal">Вход</a></p>
+          <p class="mb-3">
+            Уже зарегистрированы? <a href="" data-bs-target="#loginModal" data-bs-toggle="modal" class="message-login">Вход</a>
+          </p>
+          <p class="text-danger mb-3 invisible error-message">Неверно введены данные</p>
         </form>
       </div>
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-

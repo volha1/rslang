@@ -2,15 +2,16 @@ import * as constants from '../constants';
 import LocalStorageService from './storage-service';
 import ResponseCodes from '../enums/responseCodes';
 
-const createUser = async (user: { name: string, email: string, password: string }): Promise<void> => {
-  (await fetch(`${constants.usersUrl}`, {
+const createUser = async (user: { name: string | undefined; email: string | undefined; password: string | undefined }): Promise<number> => {
+  const response = await fetch(`${constants.usersUrl}`, {
     method: 'POST',
     headers: {
-       Accept: 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(user),
-  })).json();
+  });
+  return response.status;
 };
 
 const refreshToken = async (): Promise<void> => {

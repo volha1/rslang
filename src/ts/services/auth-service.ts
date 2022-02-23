@@ -1,5 +1,6 @@
 import * as constants from '../constants';
 import LocalStorageService from './storage-service';
+import ResponseCodes from '../enums/responseCodes';
 
 const login = async (user: { email: string; password: string }): Promise<void> => {
   const response = await fetch(`${constants.signInUrl}`, {
@@ -11,10 +12,12 @@ const login = async (user: { email: string; password: string }): Promise<void> =
     body: JSON.stringify(user),
   });
 
-  const data = await response.json();
-  LocalStorageService.saveTokens(data.token, data.refreshToken);
-  LocalStorageService.saveUserID(data.userId);
-  LocalStorageService.saveUserName(data.name);
+  if (response.status === ResponseCodes.OK) {
+    const data = await response.json();
+    LocalStorageService.saveTokens(data.token, data.refreshToken);
+    LocalStorageService.saveUserID(data.userId);
+    LocalStorageService.saveUserName(data.name);
+  }
 };
 
 const logout = (): void => {
