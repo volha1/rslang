@@ -3,6 +3,7 @@ import Component from '../abstract-component';
 import GameProgressHTML from './game-progress.html';
 import state from '../../state';
 import { router } from '../../router';
+import * as utils from '../../utils';
 
 export default class GameProgress extends Component {
   constructor() {
@@ -18,6 +19,9 @@ export default class GameProgress extends Component {
     }
     this.container.innerHTML = template(GameProgressHTML)({ percentage: rightAnswersPercentage });
     this.addListeners();
+    (async () => {
+      await utils.addWordToLearnedIfGuessed();
+    })();
     return this.container;
   }
 

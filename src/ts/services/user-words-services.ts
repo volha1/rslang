@@ -143,3 +143,19 @@ export async function getAggregatedUserWord(userId: string, wordId: string): Pro
   const word = content[0];
   return word;
 }
+
+export async function addWordToLearned(wordId: string): Promise<void> {
+  const userId = localStorage.getItem(constants.userId);
+  if (userId) {
+    const userWord = await getAggregatedUserWord(userId, wordId);
+    const word = {
+      difficulty: 'easy',
+      optional: {},
+    };
+    if (userWord.userWord?.difficulty === 'hard') {
+      await deleteUserWord(userId, wordId);
+    } else {
+      await createUserWord(userId, wordId, word);
+    }
+  }
+}

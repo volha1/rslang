@@ -1,6 +1,6 @@
 import { JSONWord } from './types/word';
 import getWords, { getWordsInGroup } from './services/word-list-service';
-import { getUserWords } from './services/user-words-services';
+import { addWordToLearned, getUserWords } from './services/user-words-services';
 import state from './state';
 import store from './store';
 import * as constants from './constants';
@@ -125,8 +125,8 @@ async function saveAudiocallStatistics(): Promise<void> {
       sprintRightAnswers,
       newWords: {
         audiocall: audiocallNewWords,
-        sprint: sprintNewWords
-      }
+        sprint: sprintNewWords,
+      },
     },
   };
   updateStatistics(statObj);
@@ -158,8 +158,8 @@ async function saveSprintStatistics(): Promise<void> {
       sprintRightAnswers,
       newWords: {
         audiocall: audiocallNewWords,
-        sprint: sprintNewWords
-      }
+        sprint: sprintNewWords,
+      },
     },
   };
   updateStatistics(statObj);
@@ -169,6 +169,17 @@ function resetSprintScore(): void {
   store.sprintScore = 0;
   store.sprintPointsForRightAnswer = 10;
   store.sprintProgressBar = 0;
+}
+
+async function addWordToLearnedIfGuessed(): Promise<void> {
+  const rightAnswerIds = state.gameRightAnswers.map((item) => item._id);
+  rightAnswerIds.forEach((item) =>
+    (async (): Promise<void> => {
+      if (item) {
+        await addWordToLearned(item);
+      }
+    })()
+  );
 }
 
 export {
@@ -181,5 +192,6 @@ export {
   getRandomSprintAnswer,
   resetSprintScore,
   saveAudiocallStatistics,
-  saveSprintStatistics
+  saveSprintStatistics,
+  addWordToLearnedIfGuessed,
 };
