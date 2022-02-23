@@ -6,21 +6,21 @@ import * as constants from '../../constants';
 import state from '../../state';
 
 export default class AudioCallAnswer extends Component {
-  private word: JSONWord;
+  private wordObject: JSONWord;
 
   constructor() {
     super('div', 'row mb-2 audiocall-answer invisible');
-    this.word = state.gameWordsForGuessing[state.wordsCounter];
+    this.wordObject = state.gameWordsForGuessing[state.wordsCounter];
   }
 
   render(): HTMLElement {
-    this.container.innerHTML = template(AudioCallHTML)({ image: this.word.image, word: this.word.word });
+    this.container.innerHTML = template(AudioCallHTML)({ image: this.wordObject.image, word: this.wordObject.word });
     this.addListeners();
     return this.container;
   }
 
   addListeners(): void {
-    const wordAudio = new Audio(`${constants.url}${this.word.audio}`);
+    const wordAudio = new Audio(`${constants.url}${this.wordObject.audio}`);
 
     async function playAudio(): Promise<void> {
       await wordAudio.play();

@@ -79,8 +79,8 @@ export default class AudioCallOptions extends Component {
 
         document.querySelector<HTMLButtonElement>('.btn-game-results')?.click();
       } else {
-        state.wordsCounter += 1;
-        audioCall();
+        state.wordsCounter++;
+        await audioCall();
         showGuessElements();
       }
     });
@@ -111,8 +111,6 @@ export default class AudioCallOptions extends Component {
         if (event.key === ' ') {
           document.querySelector<HTMLButtonElement>("[data-number='6']")?.click();
         }
-      },
-      { once: true }
-    );
+      });
   }
 }
