@@ -89,8 +89,28 @@ export default class AudioCallOptions extends Component {
     });
 
     document.addEventListener('keydown', (event) => {
-      if (+event.key === 1 || +event.key === 2 || +event.key === 3 || +event.key === 4 || +event.key === 5 || event.key === ' ') {
+      if (+event.key === 1) {
         processGuess(document.querySelector<HTMLButtonElement>("[data-number='1']")!);
+      }
+
+      if (+event.key === 2) {
+        processGuess(document.querySelector<HTMLButtonElement>("[data-number='2']")!);
+      }
+
+      if (+event.key === 3) {
+        processGuess(document.querySelector<HTMLButtonElement>("[data-number='3']")!);
+      }
+
+      if (+event.key === 4) {
+        processGuess(document.querySelector<HTMLButtonElement>("[data-number='4']")!);
+      }
+
+      if (+event.key === 5) {
+        processGuess(document.querySelector<HTMLButtonElement>("[data-number='5']")!);
+      }
+
+      if (event.key === ' ') {
+        processGuess(document.querySelector<HTMLButtonElement>("[data-number='6']")!);
       }
     });
   }
