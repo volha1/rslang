@@ -34,13 +34,14 @@ export default class WordCard extends Component {
   render(): HTMLElement {
     let buttonContent = 'Отметить как сложное';
     function changeButtonMeaning(): void {
-      if (store.chapter === 7) {
+      if (store.chapter === constants.difficultWordsChapter) {
         buttonContent = 'Удалить из сложных';
       }
     }
 
     changeButtonMeaning();
     this.container.innerHTML = template(WordHTML)({
+      url: constants.url,
       word: this.word,
       image: this.image,
       audio: this.audio,
@@ -61,22 +62,22 @@ export default class WordCard extends Component {
       if (buttonDifficult && store.chapter !== constants.difficultWordsChapter) {
         buttonDifficult.disabled = true;
       }
-      store.markedWordsCounter += 1;
+      store.markedWordsCounter++;
     } else if (this.userWord?.difficulty && this.userWord.difficulty === 'easy') {
       this.container.classList.add('easy');
       if (buttonLearned) {
         buttonLearned.disabled = true;
       }
-      store.markedWordsCounter += 1;
+      store.markedWordsCounter++;
     }
     this.addListeners();
     return this.container;
   }
 
   addListeners(): void {
-    const wordAudio = new Audio(`https://learnwords-rslang-01.herokuapp.com/${this.audio}`);
-    const wordMeaningAudio = new Audio(`https://learnwords-rslang-01.herokuapp.com/${this.audioMeaning}`);
-    const wordExampleAudio = new Audio(`https://learnwords-rslang-01.herokuapp.com/${this.audioExample}`);
+    const wordAudio = new Audio(`${constants.url}${this.audio}`);
+    const wordMeaningAudio = new Audio(`${constants.url}${this.audioMeaning}`);
+    const wordExampleAudio = new Audio(`${constants.url}${this.audioExample}`);
 
     async function playAudio(): Promise<void> {
       await wordAudio.play();
@@ -100,7 +101,7 @@ export default class WordCard extends Component {
 
     buttonDifficult?.addEventListener('click', async () => {
       const userId = localStorage.getItem(constants.userId);
-      if (userId && this._id && store.chapter !== 7) {
+      if (userId && this._id && store.chapter !== constants.difficultWordsChapter) {
         const userWord = await getAggregatedUserWord(userId, this._id);
         const word = {
           difficulty: 'hard',

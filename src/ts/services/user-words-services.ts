@@ -19,20 +19,6 @@ export async function createUserWord(userId: string, wordId: string, word: UserW
   });
 }
 
-export async function getUserWord(userId: string, wordId: string): Promise<{ content: UserWordById; status: number }> {
-  const token = localStorage.getItem(constants.token);
-  const response = await fetch(`${constants.usersUrl}/${userId}/words/${wordId}`, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      Accept: 'application/json',
-    },
-  });
-  const content = await response.json();
-  const { status } = response;
-  return { content, status };
-}
-
 export async function updateUserWord(userId: string, wordId: string, word: UserWordById): Promise<void> {
   const token = localStorage.getItem(constants.token);
   await fetch(`${constants.usersUrl}/${userId}/words/${wordId}`, {

@@ -14,7 +14,11 @@ export default class AudioCallAnswer extends Component {
   }
 
   render(): HTMLElement {
-    this.container.innerHTML = template(AudioCallHTML)({ image: this.wordObject.image, word: this.wordObject.word });
+    this.container.innerHTML = template(AudioCallHTML)({
+      url: constants.url,
+      image: this.wordObject.image,
+      word: this.wordObject.word,
+    });
     this.addListeners();
     return this.container;
   }
