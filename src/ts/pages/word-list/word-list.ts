@@ -1,3 +1,4 @@
+import template from 'lodash.template';
 import Header from '../../components/header/header';
 import WordListNav from '../../components/word-list-nav/word-list-nav';
 import getWords from '../../services/word-list-service';
@@ -13,6 +14,7 @@ import { getUserWords } from '../../services/user-words-services';
 import { JSONWords } from '../../types/word';
 import * as constants from '../../constants';
 import './word-list.scss';
+import LoadingHTML from '../../components/loading/loading.html';
 
 function changeElementsVisibility(): void {
   if (!AuthService.isLogged()) {
@@ -36,6 +38,10 @@ export default async function bootstrap(): Promise<void> {
   const main = document.createElement('main');
   main.classList.add('main-word-list');
   const wordsContainer = document.createElement('div');
+
+  wordsContainer.innerHTML = template(LoadingHTML)();
+  main.append(wordsContainer);
+  body?.append(main);
 
   const userId = localStorage.getItem(constants.userId);
   const easyPages: number[] = [];
@@ -68,6 +74,7 @@ export default async function bootstrap(): Promise<void> {
   }
   store.markedWordsCounter = 0;
   const wordsArray = await getWordsForPage();
+  wordsContainer.innerHTML='';
   wordsArray?.forEach((item) => {
     const {
       id,
@@ -115,7 +122,6 @@ export default async function bootstrap(): Promise<void> {
     const prevNextButtons = new PrevNextButtons();
     main.append(prevNextButtons.render());
   }
-  body?.append(main);
   const footer = new Footer();
   body?.append(footer.render());
   const registration = new Registration();
