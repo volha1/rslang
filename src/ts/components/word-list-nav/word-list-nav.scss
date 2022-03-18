@@ -1,0 +1,31 @@
+@use 'sass:meta';
+@import '../../../../node_modules/bootstrap/scss/bootstrap';
+@import '../../../../node_modules/bootstrap/scss/variables';
+@import '../../../variables.scss';
+
+@mixin syntax-colors($args...) {
+  @each $name, $color in meta.keywords($args) {
+    .#{$name} {
+      background-color: $color;
+    }
+  }
+}
+
+@include syntax-colors(
+  $chapter1: $yellow-100,
+  $chapter2: $yellow-200,
+  $chapter3: $yellow-300,
+  $chapter4: $yellow-400,
+  $chapter5: $yellow-500,
+  $chapter6: $yellow-600,
+  $chapter7: $yellow-700
+);
+
+.easy-page {
+  background-color: $learned-word-list-color;
+}
+
+.button-in-word-list-nav {
+  border: none;
+  background-color: rgba($color: #fff, $alpha: 0);
+}

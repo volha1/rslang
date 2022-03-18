@@ -1,0 +1,44 @@
+<div class="modal fade" tabindex="-1" id="resultModal" data-bs-backdrop="static">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+        <div class="modal-body">
+          <ul class="nav nav-tabs mb-4">
+            <li class="nav-item">
+              <button class="nav-link score-in-result" data-bs-target="#progressModal" data-bs-toggle="modal"> Результат </button>
+            </li>
+            <li class="nav-item">
+              <button class="nav-link active"> Посмотреть мои слова </button>
+            </li>
+          </ul>
+          <div class="mb-4">
+            <p>Я знаю: <span class="badge rounded-pill bg-success"><%-rightAnswers.length%></span></p>
+            <ul class="list-group list-group-flush">
+                <%for(let i = 0; i < rightAnswers.length; i++) { %>
+                  <li class="list-group-item list-group-item-success">
+                    <button type="button" class="btn result-audio-btn" data-audio="<%-rightAnswers[i].audio%>">
+                      <img src="../../../assets/svg/speaker.svg" class="speaker-icon">
+                    </button>
+                  <%-rightAnswers[i].word%> - <%-rightAnswers[i].wordTranslate%>
+                  </li><% }; %>
+              </ul>
+          </div>
+          <div>
+            <p>Я не знаю: <span class="badge rounded-pill bg-danger"><%-wrongAnswers.length%></span></p>
+            <ul class="list-group list-group-flush">
+                <%for(let i = 0; i < wrongAnswers.length; i++) { %>
+                  <li class="list-group-item list-group-item-danger">
+                    <button type="button" class="btn result-audio-btn" data-audio="<%-wrongAnswers[i].audio%>">
+                      <img src="../../../assets/svg/speaker.svg" class="speaker-icon">
+                    </button>
+                  <%-wrongAnswers[i].word%> - <%-wrongAnswers[i].wordTranslate%>
+                  </li><% }; %>
+              </ul>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="button" class="btn btn-primary btn-repeat" data-bs-dismiss="modal">повторить</button>
+          <button type="button" class="btn btn-primary btn-textbook" data-bs-dismiss="modal">учебник</a>
+        </div>
+      </div>
+  </div>
+</div>

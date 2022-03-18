@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+        <div>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle button-in-word-list-nav" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="выбрать раздел">
+                        Раздел <%-chapter%>
+                    </button>
+                    <ul class="dropdown-menu choose-chapter" aria-labelledby="выпадающее меню">
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle button-in-word-list-nav" type="button" data-bs-toggle="dropdown" aria-expanded="false"aria-label="выбрать страницу">
+                        Страница <%-page%>
+                    </button>
+                    <ul class="dropdown-menu choose-page" aria-labelledby="выпадающее меню">
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle games-from-page button-in-word-list-nav" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                        data-route="miniGames" aria-label="выбрать мини-игру со словами этой страницы">
+                        Мини-игры со словами этой страницы
+                </button>
+                    <ul class="dropdown-menu" aria-labelledby="выпадающее меню">
+                        <li><a class="dropdown-item" href="/mini-games/audio-call/start" data-navigo>Аудиовызов</a></li>
+                        <li><a class="dropdown-item" href="/mini-games/sprint/start" data-navigo>Спринт</a></li>
+                    </ul>
+                </li>
+        </div>
+    </div>
+</nav>

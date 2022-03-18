@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="бургерное меню">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/" data-navigo data-route="main">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/textbook" data-navigo data-route="textbook">Электронный учебник</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <button class="nav-link dropdown-toggle bg-light mini-games-nav-button" id="navbarDropdown" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" data-route="miniGames" aria-label="выбрать мини-игру">
+                        Мини-игры
+                </button>
+                    <ul class="dropdown-menu" aria-labelledby="выпадающее меню">
+                        <li><a class="dropdown-item" href="/mini-games/audio-call" data-navigo>Аудиовызов</a></li>
+                        <li><a class="dropdown-item" href="/mini-games/sprint" data-navigo>Спринт</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-statistics" a href="/statistics" data-navigo
+                        data-route="statistics">Статистика</a>
+                </li>
+        </div>
+        <p class="mx-2 my-0 user-name">
+            <%-name%>
+        </p>
+        <button type="button" class="btn btn-outline-secondary btn-login" data-bs-toggle="modal"
+            data-bs-target="#loginModal" aria-label="авторизироваться"><img src="../../../assets/svg/auth.svg" alt="авторизация" class="auth-img"></button>
+        <button type="button" class="btn btn-outline-secondary btn-logout" aria-label="выйти из учетной записи"><img src="../../../assets/svg/auth-out.svg"
+                alt="выход из учетной записи" class="auth-img"></button>
+    </div>
+</nav>
