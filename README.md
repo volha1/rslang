@@ -12,15 +12,15 @@
 ## Production dependencies:
 - Bootstrap  
 
-_advantages_: buttons, navigation, popup windows have been created fast and easy  
-_disadvantages_: only a little part of bootstrap have been used, but the whole package was downloaded
+_pros_: buttons, navigation, popup windows have been created fast and easy  
+_cons_: a small part of the library is actually used, but the whole package is loaded
+
 - Navigo (router)  
 
-_advantages_: easy to implement routing with data-attributes  
-_disadvantages_:  in case of SPA, if it is navigation not on the landing page, it should be initialized additionally
+_pros_: easy to implement routing with data-attributes  
+_cons_:  if links are added after initialization, you need to manually reinitialize the navigation
 
 - Lodash.template  
 
-_advantages_: html-code is is used from the html-file, it can be formatting easy; easy to use 
-variables;  
-_disadvantages_: it should be more files as each component has .ts and .html files
+_pros_: allow you to parameterize html fragments that can be extracted into separate files which significantly improve further maintenance  
+_cons_: you should be familiar with lodash templates syntax
